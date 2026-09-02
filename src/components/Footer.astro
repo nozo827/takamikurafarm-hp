@@ -1,0 +1,71 @@
+---
+import { contact, nav, site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer id="contact" class="bg-soil py-16 text-cream/80 sm:py-20">
+	<div class="mx-auto max-w-6xl px-6 sm:px-8">
+		<div class="grid gap-12 sm:grid-cols-3">
+			<div>
+				<p class="font-serif text-xl text-cream">{site.name}</p>
+				<p class="mt-1 text-xs tracking-[0.35em] text-gold-light">
+					{site.brand}
+				</p>
+				<a
+					href="/contact"
+					class="mt-6 inline-block text-sm text-cream/70 underline decoration-gold-light/40 underline-offset-4 transition-colors hover:text-gold-light"
+				>
+					お問い合わせはこちら
+				</a>
+			</div>
+
+			<div>
+				<p class="text-xs tracking-[0.3em] text-gold-light">MENU</p>
+				<nav class="mt-4 flex flex-col gap-2">
+					{
+						nav.map((item) => (
+							<a
+								href={item.href}
+								class="text-sm text-cream/70 transition-colors hover:text-gold-light"
+							>
+								{item.label}
+							</a>
+						))
+					}
+				</nav>
+			</div>
+
+			<div>
+				<p class="text-xs tracking-[0.3em] text-gold-light">SHOP / SNS</p>
+				<div class="mt-4 flex flex-col gap-2">
+					<a
+						href={site.onlineShopUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-sm text-cream/70 transition-colors hover:text-gold-light"
+					>
+						オンラインショップ ↗
+					</a>
+					{
+						contact.sns.map((s) => (
+							<a
+								href={s.href}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="text-sm text-cream/70 transition-colors hover:text-gold-light"
+							>
+								{s.label}
+							</a>
+						))
+					}
+				</div>
+			</div>
+		</div>
+
+		<div class="mt-14 flex flex-col items-center justify-between gap-4 border-t border-cream/10 pt-8 text-xs text-cream/50 sm:flex-row">
+			<p>&copy; {year} {site.name}</p>
+			<a href="/" class="transition-colors hover:text-gold-light">↑ トップへ戻る</a>
+		</div>
+	</div>
+</footer>

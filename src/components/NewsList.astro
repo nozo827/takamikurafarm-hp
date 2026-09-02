@@ -1,0 +1,48 @@
+---
+import type { NewsItem } from '../lib/microcms';
+
+interface Props {
+	items: NewsItem[];
+}
+
+const { items } = Astro.props;
+
+function formatDate(dateStr: string) {
+	const d = new Date(dateStr);
+	return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+}
+---
+
+<ul class="divide-y divide-soil/10 border-y border-soil/10">
+	{
+		items.map((item) => {
+			const href = item.url ?? `/news/${item.id}`;
+			const external = Boolean(item.url);
+			return (
+				<li>
+					<a
+						href={href}
+						target={external ? '_blank' : undefined}
+						rel={external ? 'noopener noreferrer' : undefined}
+						class="flex items-center gap-4 py-5 transition-colors hover:text-gold sm:gap-6"
+					>
+						{item.image && (
+							<img
+								src={item.image.url}
+								alt=""
+								class="h-14 w-14 shrink-0 rounded-sm object-cover sm:h-16 sm:w-16"
+								loading="lazy"
+							/>
+						)}
+						<div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-6">
+							<time class="shrink-0 text-xs tracking-wide text-ink/50 sm:w-24">
+								{formatDate(item.publishedAt)}
+							</time>
+							<span class="text-sm text-ink/80 sm:text-base">{item.title}</span>
+						</div>
+					</a>
+				</li>
+			);
+		})
+	}
+</ul>

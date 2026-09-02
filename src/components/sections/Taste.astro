@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets';
+import { taste } from '../../data/site';
+import vegetablePhoto from '../../assets/photos/DSC07765.jpg';
+import figPhoto from '../../assets/photos/いちじく.jpg';
+import processedPhoto from '../../assets/photos/ichi.jpg';
+
+const vegetablePhotos = [vegetablePhoto, figPhoto];
+---
+
+<section id={taste.id} class="bg-cream-dark py-16 sm:py-20">
+	<div class="mx-auto max-w-5xl px-6 sm:px-8">
+		<div class="js-reveal max-w-2xl">
+			<p class="font-serif text-4xl text-gold/50 sm:text-5xl">{taste.number}</p>
+			<h2 class="mt-2 font-serif text-xl leading-relaxed text-soil sm:text-2xl">
+				{taste.title}
+			</h2>
+			<div class="mt-4 h-px w-16 bg-gold"></div>
+			<p class="mt-6 text-sm leading-8 text-ink/80 sm:text-base sm:leading-9">
+				{taste.lead}
+			</p>
+		</div>
+
+		<div class="mt-10 grid gap-8 sm:grid-cols-2 sm:gap-6">
+			{
+				taste.items.map((item, i) => (
+					<div class={`js-reveal flex flex-col ${i % 2 === 1 ? 'js-reveal-delay-1' : ''}`}>
+						{i === 0 ? (
+							<div class="relative mx-auto aspect-[4/3] w-full max-w-sm overflow-hidden rounded-sm">
+								{vegetablePhotos.map((photo, j) => (
+									<Image
+										src={photo}
+										alt={item.heading}
+										class={`taste-slide absolute inset-0 h-full w-full object-cover transition-opacity duration-[1500ms] ${j === 0 ? 'opacity-100' : 'opacity-0'}`}
+									/>
+								))}
+							</div>
+						) : (
+							<Image
+								src={processedPhoto}
+								alt={item.heading}
+								class="mx-auto aspect-[4/3] w-full max-w-sm rounded-sm object-cover"
+							/>
+						)}
+						<h3 class="mt-4 font-serif text-lg text-soil">{item.heading}</h3>
+						<p class="mt-2 text-sm leading-8 text-ink/80">{item.body}</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	const slides = document.querySelectorAll<HTMLElement>('.taste-slide');
+	if (slides.length > 1) {
+		let current = 0;
+		setInterval(() => {
+			slides[current].classList.remove('opacity-100');
+			slides[current].classList.add('opacity-0');
+			current = (current + 1) % slides.length;
+			slides[current].classList.remove('opacity-0');
+			slides[current].classList.add('opacity-100');
+		}, 5000);
+	}
+</script>

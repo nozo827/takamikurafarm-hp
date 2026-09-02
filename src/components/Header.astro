@@ -1,0 +1,186 @@
+---
+import { contact, nav, site } from '../data/site';
+---
+
+<header
+	id="site-header"
+	class="fixed inset-x-0 top-0 z-50 py-7 transition-[padding] duration-500 ease-out lg:py-10"
+>
+	<div class="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-10">
+		<a href="/" class="flex flex-col leading-none">
+			<span class="font-serif text-lg tracking-wide text-cream drop-shadow-sm lg:text-xl">
+				{site.name}
+			</span>
+			<span class="text-[10px] tracking-[0.35em] text-gold-light">
+				{contact.companyName}
+			</span>
+		</a>
+
+		<nav
+			id="pill-nav"
+			class="hidden items-stretch overflow-hidden rounded-full bg-ink/30 shadow-lg shadow-ink/10 ring-1 ring-cream/15 backdrop-blur-md transition-colors duration-500 lg:flex [.is-scrolled_&]:bg-soil/95 [.is-scrolled_&]:ring-cream/10"
+		>
+			<a
+				href={site.onlineShopUrl}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="flex items-center whitespace-nowrap bg-gold px-5 py-4 text-xs font-medium tracking-wide text-cream transition-colors hover:bg-gold-light"
+			>
+				オンラインショップ
+			</a>
+			{
+				nav.map((item) => (
+					<a
+						href={item.href}
+						class="nav-pill-link flex items-center px-4 py-4 text-xs tracking-wide text-cream/85 transition-colors hover:text-gold-light"
+					>
+						<span>{item.label}</span>
+					</a>
+				))
+			}
+		</nav>
+	</div>
+</header>
+
+<nav
+	id="mobile-bar"
+	aria-label="モバイルメニュー"
+	class="fixed inset-x-0 bottom-0 z-50 flex items-center gap-3 p-4 lg:hidden"
+>
+	<a
+		href={site.onlineShopUrl}
+		target="_blank"
+		rel="noopener noreferrer"
+		class="flex flex-1 items-center justify-center rounded-full bg-gold px-5 py-4 text-center text-sm font-medium tracking-wide text-cream shadow-lg shadow-ink/25 transition-colors hover:bg-gold-light"
+	>
+		オンラインショップ
+	</a>
+	<button
+		id="menu-toggle"
+		type="button"
+		aria-label="メニューを開く"
+		aria-expanded="false"
+		aria-controls="mobile-menu"
+		class="flex h-[3.5rem] w-[3.5rem] shrink-0 flex-col items-center justify-center gap-1.5 rounded-full bg-soil text-cream shadow-lg shadow-ink/25"
+	>
+		<span aria-hidden="true" class="h-px w-5 bg-current"></span>
+		<span aria-hidden="true" class="h-px w-5 bg-current"></span>
+	</button>
+</nav>
+
+<div
+	id="mobile-menu"
+	class="fixed inset-0 z-[60] hidden flex-col bg-soil px-6 pb-28 pt-8 text-cream lg:hidden"
+>
+	<div class="flex items-center justify-between">
+		<a href="/" class="font-serif text-lg text-cream">
+			{site.name}
+		</a>
+		<button
+			id="menu-close"
+			type="button"
+			aria-label="メニューを閉じる"
+			class="flex h-10 w-10 items-center justify-center rounded-full border border-cream/30 text-cream"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-5 w-5"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="1.5"
+			>
+				<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
+			</svg>
+		</button>
+	</div>
+
+	<nav class="mt-12 flex flex-1 flex-col justify-center gap-1 overflow-y-auto">
+		{
+			nav.map((item) => (
+				<a
+					href={item.href}
+					class="mobile-nav-link border-b border-cream/10 py-4 font-serif text-xl text-cream/90 transition-colors hover:text-gold-light"
+				>
+					{item.label}
+				</a>
+			))
+		}
+	</nav>
+</div>
+
+<script>
+	const header = document.getElementById('site-header');
+	const hero = document.getElementById('top');
+
+	if (header && hero) {
+		const io = new IntersectionObserver(
+			([entry]) => {
+				header.classList.toggle('is-scrolled', !entry.isIntersecting);
+			},
+			{ rootMargin: '-88px 0px 0px 0px', threshold: 0 }
+		);
+		io.observe(hero);
+	}
+
+	function setHeaderHeightVar() {
+		if (header) {
+			document.documentElement.style.setProperty('--header-height', `${header.offsetHeight}px`);
+		}
+	}
+	setHeaderHeightVar();
+	window.addEventListener('resize', setHeaderHeightVar);
+
+	const toggle = document.getElementById('menu-toggle');
+	const closeBtn = document.getElementById('menu-close');
+	const menu = document.getElementById('mobile-menu');
+
+	function openMenu() {
+		menu?.classList.remove('hidden');
+		menu?.classList.add('flex');
+		toggle?.setAttribute('aria-expanded', 'true');
+		document.documentElement.classList.add('overflow-hidden');
+	}
+
+	function closeMenu() {
+		menu?.classList.add('hidden');
+		menu?.classList.remove('flex');
+		toggle?.setAttribute('aria-expanded', 'false');
+		document.documentElement.classList.remove('overflow-hidden');
+	}
+
+	toggle?.addEventListener('click', () => {
+		const isOpen = menu?.classList.contains('flex');
+		isOpen ? closeMenu() : openMenu();
+	});
+	closeBtn?.addEventListener('click', closeMenu);
+	document.querySelectorAll('.mobile-nav-link').forEach((link) => {
+		link.addEventListener('click', closeMenu);
+	});
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape') closeMenu();
+	});
+
+	// Scrollspy: 現在表示中のセクションに対応するナビリンクをハイライト
+	const sections = document.querySelectorAll('main section[id], main div[id], footer[id]');
+	const navLinks = document.querySelectorAll('.nav-pill-link, .mobile-nav-link');
+
+	// 01/02/03(和土・滋味・パートナー)を表示中も「コンセプト」の下線を表示させる
+	const conceptGroup = new Set(['concept', 'soil', 'taste', 'partner']);
+
+	const spy = new IntersectionObserver(
+		(entries) => {
+			for (const entry of entries) {
+				if (!entry.isIntersecting) continue;
+				const id = entry.target.getAttribute('id') ?? '';
+				const activeId = conceptGroup.has(id) ? 'concept' : id;
+				navLinks.forEach((link) => {
+					const href = link.getAttribute('href') ?? '';
+					link.classList.toggle('is-active', href.endsWith(`#${activeId}`));
+				});
+			}
+		},
+		{ rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+	);
+	sections.forEach((section) => spy.observe(section));
+</script>

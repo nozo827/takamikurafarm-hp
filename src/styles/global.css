@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+@theme {
+	--color-cream: #f7f2e7;
+	--color-cream-dark: #efe6d3;
+	--color-ink: #2b2620;
+	--color-soil: #3f2f22;
+	--color-soil-light: #5a4632;
+	--color-moss: #55603f;
+	--color-moss-light: #7c8a5c;
+	--color-gold: #b4894f;
+	--color-gold-light: #d6b57f;
+
+	--font-serif: "Noto Serif JP", serif;
+	--font-sans: "Noto Sans JP", "Hiragino Sans", sans-serif;
+}
+
+html {
+	scroll-behavior: smooth;
+	scroll-padding-top: 6rem;
+}
+
+body {
+	background-color: var(--color-cream);
+	color: var(--color-ink);
+	font-family: var(--font-sans);
+	padding-bottom: 5.5rem;
+}
+
+@media (min-width: 1024px) {
+	body {
+		padding-bottom: 0;
+	}
+}
+
+/* スクロールでヘッダーが少しコンパクトになる */
+#site-header.is-scrolled {
+	padding-block: 0.9rem;
+}
+
+/* ヘッダーのピルナビ: 現在地セクションの下線とホバー時の下線アニメーション */
+.nav-pill-link {
+	position: relative;
+}
+
+.nav-pill-link span {
+	position: relative;
+}
+
+.nav-pill-link span::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -0.35rem;
+	height: 1px;
+	background: currentColor;
+	transform: scaleX(0);
+	transform-origin: center;
+	opacity: 0;
+	transition: transform 300ms ease, opacity 300ms ease;
+}
+
+.nav-pill-link:hover span::after,
+.nav-pill-link.is-active span::after {
+	transform: scaleX(1);
+	opacity: 1;
+}
+
+.nav-pill-link.is-active {
+	color: var(--color-gold-light);
+}
+
+.mobile-nav-link.is-active {
+	color: var(--color-gold-light);
+}
+
+/* スクロールで要素をふわっと表示させる演出 */
+.js-reveal {
+	opacity: 0;
+	transform: translateY(28px);
+	transition: opacity 800ms ease, transform 800ms ease;
+}
+
+.js-reveal.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.js-reveal-delay-1 {
+	transition-delay: 120ms;
+}
+
+.js-reveal-delay-2 {
+	transition-delay: 240ms;
+}
+
+.js-reveal-delay-3 {
+	transition-delay: 360ms;
+}
+
+/* ヒーローは読み込み時にふわっと立ち上がる */
+@keyframes hero-fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.hero-fade-in {
+	animation: hero-fade-up 1100ms ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	.js-reveal,
+	.hero-fade-in {
+		opacity: 1;
+		transform: none;
+		animation: none;
+		transition: none;
+	}
+}

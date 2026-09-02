@@ -1,0 +1,95 @@
+---
+import { Image } from 'astro:assets';
+import { productCategories, site } from '../../data/site';
+import { getProducts } from '../../lib/microcms';
+import ImagePlaceholder from '../ImagePlaceholder.astro';
+
+// microCMS に products エンドポイントを用意すればそちらを、
+// 未設定の間は src/data/site.ts のカテゴリ一覧を表示する。
+const products = await getProducts(8);
+---
+
+<section id="products" class="bg-cream-dark py-24 sm:py-32">
+	<div class="mx-auto max-w-6xl px-6 sm:px-8">
+		<div class="js-reveal text-center">
+			<p class="text-xs tracking-[0.35em] text-moss">PRODUCTS</p>
+			<h2 class="mt-4 font-serif text-2xl text-soil sm:text-3xl">
+				農園のめぐみ
+			</h2>
+			<div class="mx-auto mt-6 h-px w-16 bg-gold"></div>
+		</div>
+
+		{
+			products.length > 0 ? (
+				<div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+					{products.map((product) => (
+						<div class="flex flex-col">
+							{product.image ? (
+								<img
+									src={product.image.url}
+									alt={product.name}
+									class="aspect-square w-full rounded-sm object-cover"
+									loading="lazy"
+								/>
+							) : (
+								<ImagePlaceholder
+									label={product.category}
+									tone="gold"
+									class="aspect-square w-full rounded-sm"
+								/>
+							)}
+							<p class="mt-4 text-xs tracking-widest text-moss">
+								{product.category}
+							</p>
+							<h3 class="mt-1 font-serif text-lg text-soil">{product.name}</h3>
+						</div>
+					))}
+				</div>
+			) : (
+				<div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+					{productCategories.map((category) => (
+						<a
+							href={site.onlineShopUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="group flex flex-col"
+						>
+							{category.image ? (
+								<Image
+									src={category.image}
+									alt={category.name}
+									class="aspect-square w-full rounded-sm object-cover"
+								/>
+							) : (
+								<ImagePlaceholder
+									label={category.name}
+									tone="gold"
+									class="aspect-square w-full rounded-sm"
+								/>
+							)}
+							<div class="mt-4 flex items-center justify-between">
+								<span class="font-serif text-base text-soil group-hover:text-gold">
+									{category.name}
+								</span>
+								<span class="text-xs tracking-wide text-ink/50">
+									{category.count}品 →
+								</span>
+							</div>
+						</a>
+					))}
+				</div>
+			)
+		}
+
+		<div class="mt-14 text-center">
+			<a
+				href={site.onlineShopUrl}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3 text-sm font-medium tracking-wide text-cream shadow-md transition-colors hover:bg-gold-light"
+			>
+				オンラインショップですべて見る →
+			</a>
+		</div>
+	</div>
+</section>

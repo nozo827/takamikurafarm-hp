@@ -1,0 +1,29 @@
+---
+import { partner } from '../../data/site';
+import ImagePlaceholder from '../ImagePlaceholder.astro';
+---
+
+<section id={partner.id} class="relative overflow-hidden bg-cream py-16 sm:py-20">
+	<ImagePlaceholder
+		label="料理人との対話"
+		tone="moss"
+		class="absolute inset-0 h-full w-full opacity-40"
+	/>
+	<div class="absolute inset-0 bg-gradient-to-b from-cream via-cream/95 to-cream"></div>
+
+	<div class="js-reveal relative mx-auto max-w-2xl px-6 text-center sm:px-8">
+		<p class="font-serif text-4xl text-gold/50 sm:text-5xl">
+			{partner.number}
+		</p>
+		<h2 class="mt-2 font-serif text-xl leading-relaxed text-soil sm:text-2xl">
+			{partner.title}
+		</h2>
+		<div class="mx-auto mt-4 h-px w-16 bg-gold"></div>
+		<p class="mx-auto mt-6 max-w-xl text-sm leading-8 text-ink/80 sm:text-base sm:leading-9">
+			{partner.body}
+		</p>
+		<p class="mt-8 font-serif text-base text-gold sm:text-lg">
+			{partner.closing}
+		</p>
+	</div>
+</section>

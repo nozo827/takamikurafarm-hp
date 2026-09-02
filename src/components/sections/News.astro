@@ -1,0 +1,31 @@
+---
+import { newsFallback } from '../../data/site';
+import { getNews } from '../../lib/microcms';
+import NewsList from '../NewsList.astro';
+
+const fetchedNews = await getNews(5);
+const items = fetchedNews.length > 0 ? fetchedNews : newsFallback;
+---
+
+<section id="news" class="bg-cream-dark py-16 sm:py-20">
+	<div class="mx-auto max-w-4xl px-6 sm:px-8">
+		<div class="js-reveal text-center">
+			<p class="text-xs tracking-[0.35em] text-moss">NEWS</p>
+			<h2 class="mt-4 font-serif text-2xl text-soil sm:text-3xl">お知らせ</h2>
+			<div class="mx-auto mt-6 h-px w-16 bg-gold"></div>
+		</div>
+
+		<div class="js-reveal mt-12">
+			<NewsList items={items} />
+		</div>
+
+		<div class="mt-10 text-center">
+			<a
+				href="/news"
+				class="inline-flex items-center gap-2 rounded-full border border-soil/30 px-8 py-3 text-sm tracking-wide text-soil transition-colors hover:border-gold hover:text-gold"
+			>
+				すべて見る →
+			</a>
+		</div>
+	</div>
+</section>

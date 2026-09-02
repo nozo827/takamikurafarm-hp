@@ -1,0 +1,24 @@
+---
+import { soil } from '../../data/site';
+import ImagePlaceholder from '../ImagePlaceholder.astro';
+---
+
+<section id={soil.id} class="bg-cream py-16 sm:py-20">
+	<div class="mx-auto grid max-w-5xl gap-8 px-6 sm:px-8 lg:grid-cols-2 lg:items-center lg:gap-12">
+		<ImagePlaceholder
+			label="和土 -Wado-"
+			tone="soil"
+			class="js-reveal js-reveal-delay-1 order-first mx-auto aspect-[4/3] w-full max-w-sm rounded-sm lg:order-last"
+		/>
+		<div class="js-reveal">
+			<p class="font-serif text-4xl text-gold/50 sm:text-5xl">{soil.number}</p>
+			<h2 class="mt-2 font-serif text-xl leading-relaxed text-soil sm:text-2xl">
+				{soil.title}
+			</h2>
+			<div class="mt-4 h-px w-16 bg-gold"></div>
+			<p class="mt-6 text-sm leading-8 text-ink/80 sm:text-base sm:leading-9">
+				{soil.body}
+			</p>
+		</div>
+	</div>
+</section>
