@@ -1,0 +1,19 @@
+# Netlify のビルド設定。
+# このファイルがあると、管理画面で設定しなくても Netlify が同じ条件でビルドする。
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # package.json の engines (>=22.12.0) を満たすバージョンを明示する。
+  NODE_VERSION = "22"
+
+# --- 公開前のみ有効にする設定 ---------------------------------------------
+# 確認用の仮サイト(*.netlify.app)が Google などの検索結果に載らないようにする。
+# 本番ドメイン(takamikurafarm.com)で正式公開するときに、この [[headers]]
+# ブロックごと削除すること。消し忘れると本番サイトが検索に出なくなる。
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
