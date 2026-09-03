@@ -19,7 +19,23 @@ import { contact, site } from '../data/site';
 			</div>
 
 			<div class="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-16">
-				<form id="contact-form" class="js-reveal order-1 flex flex-col gap-6 lg:order-2">
+				<form
+					id="contact-form"
+					name="contact"
+					method="POST"
+					action="/contact/thanks/"
+					data-netlify="true"
+					netlify-honeypot="bot-field"
+					class="js-reveal order-1 flex flex-col gap-6 lg:order-2"
+				>
+					{/* Netlify Forms 用の隠しフィールド。form-name は必須、bot-field はスパム除け（ハニーポット）。 */}
+					<input type="hidden" name="form-name" value="contact" />
+					<p class="hidden">
+						<label>
+							入力しないでください: <input name="bot-field" tabindex="-1" autocomplete="off" />
+						</label>
+					</p>
+
 					<p class="text-xs tracking-[0.3em] text-moss">お問い合わせフォーム</p>
 
 					<div>
@@ -78,7 +94,7 @@ import { contact, site } from '../data/site';
 						送信する
 					</button>
 					<p class="text-xs leading-6 text-ink/50">
-						送信ボタンを押すと、入力内容を記載したメールがお使いのメールソフトで作成されます。内容をご確認のうえ、送信してください。
+						送信ボタンを押すと、入力内容がそのまま当ファームへ送信されます。内容をご確認のうえ、送信してください。
 					</p>
 				</form>
 
@@ -119,29 +135,3 @@ import { contact, site } from '../data/site';
 	</main>
 	<Footer />
 </Layout>
-
-<script define:vars={{ email: contact.email }}>
-	const form = document.getElementById('contact-form');
-
-	form?.addEventListener('submit', (e) => {
-		e.preventDefault();
-
-		const data = new FormData(form);
-		const name = data.get('name') ?? '';
-		const organization = data.get('organization') ?? '';
-		const fromEmail = data.get('email') ?? '';
-		const message = data.get('message') ?? '';
-
-		const subject = `お問い合わせ（${name}様）`;
-		const body = [
-			`お名前: ${name}`,
-			`所属: ${organization}`,
-			`メールアドレス: ${fromEmail}`,
-			'',
-			'お問い合わせ内容:',
-			message,
-		].join('\n');
-
-		window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-	});
-</script>
