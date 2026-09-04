@@ -1,0 +1,260 @@
+---
+// 全ページ共通のヘッダ。
+//
+// 【スタイルの実装方針】
+// このコンポーネントは Tailwind のユーティリティを使わず、自前の
+// スコープ付き CSS で組んでいる。理由は次のとおり。
+//
+//   - 旧デザインのページ(/, /shop.html, /hurusato.html)は Bootstrap を
+//     読み込んでいる。Bootstrap の指定はカスケードレイヤーに属さないため、
+//     レイヤーに属する Tailwind のユーティリティより常に優先される。
+//     たとえば Bootstrap の a{color:#007bff} が効いてしまい、
+//     Tailwind の text-* を書いてもリンクが青くなる。
+//   - 逆に新デザインのページに Bootstrap を読み込むと、同じ理由で
+//     ページ全体の余白やタイポグラフィが壊れる。
+//
+// Astro のスコープ付き CSS はレイヤーに属さず、クラス指定（詳細度 0,2,0）が
+// Bootstrap の要素指定（0,0,1）に勝つ。かつ Bootstrap のクラス指定とは
+// 名前が重ならないので干渉しない。これで両方の環境で同じ見た目になる。
+//
+// 【再現している値】旧サイトの Bootstrap 4.5.0 + public/css/style.css
+//   .navbar                                   padding: .5rem 1rem
+//   .nav-link                                 padding: .5rem 1rem
+//   .navbar-expand-xl .navbar-nav .nav-link   padding 左右 .5rem（1200px 以上）
+//   .navbar-light .navbar-nav .nav-link       color: rgba(0,0,0,.5) / hover .7
+//   .logowidth                                width:90% / max-width:400px / padding: 80px 0 50px
+//   .pc / .sp                                 751px で切り替え
+//   .fontb-b                                  fot-klee-pro / 600
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-horizontal.png';
+import { mainNav } from '../data/oldSite';
+---
+
+<!-- スマホ（750px 以下）。旧サイトと同じく画面上部に固定する -->
+<div class="sp-bar">
+	<button
+		id="sitehead-sp-toggle"
+		type="button"
+		aria-expanded="false"
+		aria-controls="sitehead-sp-menu"
+		class="toggler"
+	>
+		<span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+		<span>MENU</span>
+	</button>
+
+	<nav id="sitehead-sp-menu" class="collapse" aria-label="メニュー">
+		<ul class="menu menu--stack">
+			{
+				mainNav.map((item) => (
+					<li>
+						<a href={item.href}>{item.label}</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+</div>
+
+<header id="page-top-header" class="site-head">
+	<!-- ロゴ -->
+	<div class="logo">
+		<a href="/">
+			<Image src={logo} alt="たかみくらファーム" width={400} densities={[1, 2]} loading="eager" />
+		</a>
+	</div>
+
+	<!-- ナビゲーション（751px 以上）。1200px 未満はハンバーガー -->
+	<nav class="pc-nav" aria-label="メニュー">
+		<button
+			id="sitehead-pc-toggle"
+			type="button"
+			aria-expanded="false"
+			aria-controls="sitehead-pc-menu"
+			class="toggler toggler--icononly"
+		>
+			<span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+		</button>
+
+		<div id="sitehead-pc-menu" class="collapse pc-collapse">
+			<ul class="menu menu--inline">
+				{
+					mainNav.map((item) => (
+						<li>
+							<a href={item.href}>{item.label}</a>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</nav>
+</header>
+
+<style>
+	/* --- 共通 --------------------------------------------------------- */
+	.menu {
+		display: flex;
+		flex-direction: column;
+		margin: 0;
+		padding: 0 0 0.25rem;
+		list-style: none;
+		border-top: 1px solid #dee2e6;
+		border-bottom: 1px solid #dee2e6;
+		font-family: fot-klee-pro, 'Noto Serif JP', serif;
+		font-weight: 600;
+	}
+
+	.menu li {
+		list-style: none;
+	}
+
+	.menu a {
+		display: block;
+		padding: 0.5rem 1rem;
+		color: rgba(0, 0, 0, 0.5);
+		text-decoration: none;
+		background-color: transparent;
+	}
+
+	.menu a:hover,
+	.menu a:focus {
+		color: rgba(0, 0, 0, 0.7);
+		text-decoration: none;
+	}
+
+	.toggler {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.25rem 0.75rem;
+		border: 1px solid transparent;
+		background: none;
+		color: rgba(0, 0, 0, 0.5);
+		font-size: 1rem;
+		font-family: inherit;
+		cursor: pointer;
+	}
+
+	.bars {
+		display: inline-block;
+		width: 1.5rem;
+	}
+
+	.bars i {
+		display: block;
+		height: 2px;
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+
+	.bars i + i {
+		margin-top: 0.35rem;
+	}
+
+	.collapse {
+		display: none;
+	}
+
+	.collapse.is-open {
+		display: block;
+	}
+
+	/* --- スマホ（750px 以下）------------------------------------------- */
+	.sp-bar {
+		position: fixed;
+		inset-inline: 0;
+		top: 0;
+		z-index: 50;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		padding: 0.5rem 1rem;
+		background-color: #d6d6d6;
+	}
+
+	.sp-bar .collapse {
+		width: 100%;
+	}
+
+	@media (min-width: 751px) {
+		.sp-bar {
+			display: none;
+		}
+	}
+
+	/* --- ヘッダ本体 ---------------------------------------------------- */
+	.site-head {
+		background-color: #ffffff;
+	}
+
+	.logo {
+		width: 90%;
+		max-width: 400px;
+		margin: 0 auto;
+		padding-top: 6rem; /* スマホは上部の固定バーの分だけ広げる */
+		padding-bottom: 50px;
+	}
+
+	.logo :global(img) {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.pc-nav {
+		display: none;
+	}
+
+	@media (min-width: 751px) {
+		.logo {
+			padding-top: 80px;
+		}
+
+		.pc-nav {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0.5rem 1rem;
+		}
+
+		.pc-collapse {
+			width: 100%;
+		}
+	}
+
+	/* --- 1200px 以上はナビを横並びにする（navbar-expand-xl 相当）-------- */
+	@media (min-width: 1200px) {
+		.toggler--icononly {
+			display: none;
+		}
+
+		.pc-collapse {
+			display: flex;
+			flex: auto;
+			width: auto;
+		}
+
+		.menu--inline {
+			flex-direction: row;
+			margin-left: auto;
+		}
+
+		.menu--inline a {
+			padding-inline: 0.5rem;
+		}
+	}
+</style>
+
+<script>
+	function bindToggle(buttonId: string, menuId: string) {
+		const button = document.getElementById(buttonId);
+		const menu = document.getElementById(menuId);
+		button?.addEventListener('click', () => {
+			const isOpen = menu?.classList.toggle('is-open') ?? false;
+			button.setAttribute('aria-expanded', String(isOpen));
+		});
+	}
+
+	bindToggle('sitehead-sp-toggle', 'sitehead-sp-menu');
+	bindToggle('sitehead-pc-toggle', 'sitehead-pc-menu');
+</script>

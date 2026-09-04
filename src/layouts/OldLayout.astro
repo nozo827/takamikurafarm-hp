@@ -8,7 +8,7 @@
 //
 // 外部スクリプトはすべて is:inline を付けて、記述順と内容をそのまま維持する
 // （jQuery より後に $ を使うスクリプトが来る順序に依存しているため）。
-import OldHeader from '../components/old/OldHeader.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import OldSiteFooter from '../components/old/OldSiteFooter.astro';
 import { oldSiteMeta } from '../data/oldSite';
 
@@ -140,7 +140,7 @@ const {
 	</head>
 
 	<body>
-		<OldHeader />
+		<SiteHeader />
 
 		<slot />
 

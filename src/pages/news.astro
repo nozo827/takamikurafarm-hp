@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import NewsList from '../components/NewsList.astro';
@@ -11,8 +12,9 @@ const items = fetchedNews.length > 0 ? fetchedNews : newsFallback;
 ---
 
 <Layout title={`お知らせ | ${site.name}`}>
-	<Header />
-	<main class="bg-cream pb-24 pt-[calc(var(--header-height,7rem)+1rem)] sm:pb-32 sm:pt-[calc(var(--header-height,9rem)+1.5rem)]">
+	<SiteHeader />
+	<Header revealOnScroll={true} />
+	<main class="bg-cream pb-24 pt-14 sm:pb-32 sm:pt-20">
 		<div class="mx-auto max-w-4xl px-6 sm:px-8">
 			<div class="js-reveal text-center">
 				<p class="text-xs tracking-[0.35em] text-moss">NEWS</p>
