@@ -1,10 +1,23 @@
 ---
 import { Image } from 'astro:assets';
 import { hero } from '../../data/site';
-import heroPhoto1 from '../../assets/photos/DSC07749.jpg';
-import heroPhoto2 from '../../assets/photos/DSC07791.jpg';
+import heroPhoto1 from '../../assets/photos/DSC07692.jpg';
+import heroPhoto2 from '../../assets/photos/DSC07709.jpg';
+import heroPhoto3 from '../../assets/photos/DSC07729.jpg';
+import heroPhoto4 from '../../assets/photos/DSC07735.jpg';
+import heroPhoto5 from '../../assets/photos/IMGP6676.jpg';
+import heroPhoto6 from '../../assets/photos/IMGP6834.jpg';
+import heroPhoto7 from '../../assets/photos/IMGP6888.jpg';
 
-const heroPhotos = [heroPhoto1, heroPhoto2];
+const heroPhotos = [
+	heroPhoto1,
+	heroPhoto2,
+	heroPhoto3,
+	heroPhoto4,
+	heroPhoto5,
+	heroPhoto6,
+	heroPhoto7,
+];
 ---
 
 <section
@@ -17,6 +30,9 @@ const heroPhotos = [heroPhoto1, heroPhoto2];
 				<Image
 					src={photo}
 					alt="高御位山の畑"
+					width={1600}
+					quality={70}
+					loading={i === 0 ? 'eager' : 'lazy'}
 					class={`hero-slide absolute inset-0 h-full w-full object-cover transition-opacity duration-[1500ms] ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
 				/>
 			))
