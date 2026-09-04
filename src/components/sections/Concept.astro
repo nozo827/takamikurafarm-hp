@@ -1,6 +1,10 @@
 ---
+import { Image } from 'astro:assets';
 import { hero, site } from '../../data/site';
-import ImagePlaceholder from '../ImagePlaceholder.astro';
+import conceptPhoto1 from '../../assets/photos/20260809_083316_IMGP6847.JPG';
+import conceptPhoto2 from '../../assets/photos/20260809_060502_IMGP6696.JPG';
+
+const conceptPhotos = [conceptPhoto1, conceptPhoto2];
 ---
 
 <section id="concept" class="bg-soil py-16 text-cream sm:py-20">
@@ -15,10 +19,33 @@ import ImagePlaceholder from '../ImagePlaceholder.astro';
 				{hero.lead}
 			</p>
 		</div>
-		<ImagePlaceholder
-			label="収穫の様子"
-			tone="moss"
-			class="js-reveal js-reveal-delay-1 mx-auto aspect-[4/3] w-full max-w-sm rounded-sm"
-		/>
+		<div
+			class="js-reveal js-reveal-delay-1 relative mx-auto aspect-[4/3] w-full max-w-sm overflow-hidden rounded-sm"
+		>
+			{
+				conceptPhotos.map((photo, i) => (
+					<Image
+						src={photo}
+						alt="収穫の様子"
+						class={`concept-slide absolute inset-0 h-full w-full object-cover transition-opacity duration-[1500ms] ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
+					/>
+				))
+			}
+		</div>
 	</div>
 </section>
+
+<script>
+	// 5 秒ごとに写真を切り替える。ヒーロー(Hero.astro)と同じ作り。
+	const slides = document.querySelectorAll<HTMLElement>('.concept-slide');
+	if (slides.length > 1) {
+		let current = 0;
+		setInterval(() => {
+			slides[current].classList.remove('opacity-100');
+			slides[current].classList.add('opacity-0');
+			current = (current + 1) % slides.length;
+			slides[current].classList.remove('opacity-0');
+			slides[current].classList.add('opacity-100');
+		}, 5000);
+	}
+</script>
