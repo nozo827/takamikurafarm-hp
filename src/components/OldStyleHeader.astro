@@ -33,8 +33,10 @@
 //
 // 1200px 未満でハンバーガーになるのも navbar-expand-xl の挙動どおり。
 //
-// フォントは fot-klee-pro(Adobe Fonts)が契約ドメイン限定で
-// このページには読み込んでいないため、代替の Noto Serif JP になる。
+// フォントはナビに font-sans を当てている。global.css で
+// --font-sans = fot-klee-pro（旧サイトの .fontb-b と同じ書体）に
+// 割り当てているため、旧ページのナビと同じ書体になる。
+// 契約ドメイン外では両方とも代替の Noto Serif JP になる。
 import { Image } from 'astro:assets';
 import logo from '../assets/logo-horizontal.png';
 import { mainNav } from '../data/oldSite';
@@ -59,7 +61,7 @@ import { mainNav } from '../data/oldSite';
 
 	<nav id="oldstyle-sp-menu" class="hidden w-full">
 		<ul
-			class="m-0 flex list-none flex-col border-y border-[#dee2e6] p-0 pb-1 font-serif font-semibold"
+			class="m-0 flex list-none flex-col border-y border-[#dee2e6] p-0 pb-1 font-sans font-semibold"
 		>
 			{
 				mainNav.map((item) => (
@@ -105,7 +107,7 @@ import { mainNav } from '../data/oldSite';
 			class="hidden w-full min-[1200px]:flex min-[1200px]:w-auto min-[1200px]:flex-auto"
 		>
 			<ul
-				class="m-0 flex list-none flex-col border-y border-[#dee2e6] p-0 pb-1 font-serif font-semibold min-[1200px]:ml-auto min-[1200px]:flex-row"
+				class="m-0 flex list-none flex-col border-y border-[#dee2e6] p-0 pb-1 font-sans font-semibold min-[1200px]:ml-auto min-[1200px]:flex-row"
 			>
 				{
 					mainNav.map((item) => (

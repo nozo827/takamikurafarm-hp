@@ -35,8 +35,15 @@
 	--color-gold: #93795a;
 	--color-gold-light: #c0ad8f;
 
-	--font-serif: "Noto Serif JP", serif;
-	--font-sans: "Noto Sans JP", "Hiragino Sans", sans-serif;
+	/*
+		書体は旧デザインのページと揃えている。
+		  --font-serif  見出し    さくらぎ蛍雪（TypeSquare）    = 旧サイトの .sakurakeisetsu
+		  --font-sans   本文・ナビ FOT-クレー Pro（Adobe Fonts）= 旧サイトの .fontb / .fontb-b
+		どちらも契約ドメインでしか配信されないため、localhost や *.netlify.app では
+		代替の Noto Serif JP で表示される（旧ページと同じ挙動）。
+	*/
+	--font-serif: SakuraKeisetsu, "Noto Serif JP", serif;
+	--font-sans: fot-klee-pro, "Noto Serif JP", serif;
 }
 
 html {
@@ -151,14 +158,4 @@ body {
 		animation: none;
 		transition: none;
 	}
-}
-
-/*
-	ページ全体を明朝体で組むための指定。
-	Layout.astro に serif={true} を渡したページの body に付く。
-	和土滋味のページ(/about.html)はブランド紹介のため明朝体で統一している。
-	お問い合わせ・お知らせのページは従来どおりゴシック体。
-*/
-body.page-serif {
-	font-family: var(--font-serif);
 }
