@@ -1,0 +1,97 @@
+---
+// 旧サイトのヘッダの見た目を Tailwind で再現したもの。
+//
+// なぜ複製するのか:
+// 旧デザインのヘッダ(src/components/old/OldHeader.astro)は Bootstrap の
+// navbar に依存している。しかしこのページ(和土滋味)は Tailwind で組まれており、
+// Bootstrap を読み込むと、レイヤーに属さない Bootstrap の指定が
+// Tailwind のユーティリティ(@layer utilities)を上書きしてしまい、
+// ページ全体の余白やタイポグラフィが崩れる。
+// そのため CSS は共有せず、見た目だけを再現している。
+//
+// 元の指定(public/css/style.css):
+//   .logowidth  width:90% / max-width:400px / padding:80px 0 50px
+//   .pc         751px 以上で表示
+//   .sp         750px 以下で表示・fixed-top・背景 #d6d6d6
+//   .fontb-b    fot-klee-pro / 600 / #323c3c
+//
+// フォントは fot-klee-pro(Adobe Fonts)が契約ドメイン限定で
+// このページには読み込んでいないため、代替の Noto Serif JP を使う。
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-horizontal.png';
+import { mainNav } from '../data/oldSite';
+---
+
+<!-- スマホ用（750px 以下）。旧サイトと同じく画面上部に固定する -->
+<div class="fixed inset-x-0 top-0 z-50 bg-[#d6d6d6] min-[751px]:hidden">
+	<button
+		id="oldstyle-menu-toggle"
+		type="button"
+		aria-expanded="false"
+		aria-controls="oldstyle-menu"
+		class="flex items-center gap-2 px-4 py-3 text-[#323c3c]"
+	>
+		<span class="inline-block h-5 w-6" aria-hidden="true">
+			<span class="block h-0.5 w-full bg-[#323c3c]"></span>
+			<span class="mt-1.5 block h-0.5 w-full bg-[#323c3c]"></span>
+			<span class="mt-1.5 block h-0.5 w-full bg-[#323c3c]"></span>
+		</span>
+		<span class="text-sm">MENU</span>
+	</button>
+
+	<nav id="oldstyle-menu" class="hidden border-t border-[#dee2e6] pb-1">
+		<ul class="m-0 flex list-none flex-col p-0">
+			{
+				mainNav.map((item) => (
+					<li>
+						<a
+							href={item.href}
+							class="block px-4 py-2 font-serif text-[#323c3c] no-underline hover:opacity-70"
+						>
+							{item.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+</div>
+
+<header class="bg-white">
+	<!-- ロゴ -->
+	<div class="mx-auto w-[90%] max-w-[400px] pb-[50px] pt-24 min-[751px]:pt-20">
+		<a href="/">
+			<Image src={logo} alt="たかみくらファーム" width={400} densities={[1, 2]} loading="eager" />
+		</a>
+	</div>
+
+	<!-- ナビゲーション（751px 以上） -->
+	<nav class="hidden px-4 min-[751px]:block">
+		<ul
+			class="m-0 flex list-none flex-wrap justify-end gap-x-1 border-y border-[#dee2e6] p-0 pb-1"
+		>
+			{
+				mainNav.map((item) => (
+					<li>
+						<a
+							href={item.href}
+							class="block px-4 py-2 font-serif font-semibold text-[#323c3c] no-underline hover:opacity-70"
+						>
+							{item.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+</header>
+
+<script>
+	const toggle = document.getElementById('oldstyle-menu-toggle');
+	const menu = document.getElementById('oldstyle-menu');
+
+	toggle?.addEventListener('click', () => {
+		const isOpen = menu?.classList.toggle('hidden') === false;
+		toggle.setAttribute('aria-expanded', String(isOpen));
+	});
+</script>
