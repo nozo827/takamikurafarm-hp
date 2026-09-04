@@ -6,8 +6,8 @@
   publish = "dist"
 
 [build.environment]
-  # package.json の engines (>=22.12.0) を満たすバージョンを明示する。
-  NODE_VERSION = "22"
+  # package.json の engines (>=22.12.0) を満たすバージョン。
+  NODE_VERSION = "22.12.0"
 
 # --- 旧 URL の引き継ぎ -----------------------------------------------------
 # 静的ページ(/about.html, /shop.html, /hurusato.html, /contact.html)は
@@ -29,6 +29,14 @@
   to = "/"
   status = 301
 
-# --- 注意 ------------------------------------------------------------------
-# 確認用サイトで使っていた X-Robots-Tag: noindex は、本番公開にあたり削除した。
-# 残したままだと takamikurafarm.com が検索結果から消えるため、再追加しないこと。
+# --- 公開前のみ有効にする設定 ----------------------------------------------
+# 確認用の仮サイト(*.netlify.app)が検索結果に載らないようにする。
+# 仮サイトが索引されると、本番の takamikurafarm.com と重複コンテンツとして
+# 扱われるおそれがあるため、クライアント確認の間は必ず有効にしておく。
+#
+# ★ 本番ドメイン(takamikurafarm.com)へ切り替えるときに、この [[headers]]
+#    ブロックごと削除すること。消し忘れると本番サイトが検索結果から消える。
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
