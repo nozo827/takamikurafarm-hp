@@ -1,14 +1,15 @@
 ---
+import { Image } from 'astro:assets';
 import { soil } from '../../data/site';
-import ImagePlaceholder from '../ImagePlaceholder.astro';
+import soilPhoto from '../../assets/photos/messageImage_1788546046231.jpg';
 ---
 
 <section id={soil.id} class="bg-cream py-16 sm:py-20">
 	<div class="mx-auto grid max-w-5xl gap-8 px-6 sm:px-8 lg:grid-cols-2 lg:items-center lg:gap-12">
-		<ImagePlaceholder
-			label="和土 -Wado-"
-			tone="soil"
-			class="js-reveal js-reveal-delay-1 order-first mx-auto aspect-[4/3] w-full max-w-sm rounded-sm lg:order-last"
+		<Image
+			src={soilPhoto}
+			alt="和土 -Wado-"
+			class="js-reveal js-reveal-delay-1 order-first mx-auto aspect-[4/3] w-full max-w-sm rounded-sm object-cover lg:order-last"
 		/>
 		<div class="js-reveal">
 			<p class="font-serif text-4xl text-gold/50 sm:text-5xl">{soil.number}</p>
