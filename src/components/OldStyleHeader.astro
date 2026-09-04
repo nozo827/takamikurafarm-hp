@@ -9,45 +9,62 @@
 // ページ全体の余白やタイポグラフィが崩れる。
 // そのため CSS は共有せず、見た目だけを再現している。
 //
-// 元の指定(public/css/style.css):
-//   .logowidth  width:90% / max-width:400px / padding:80px 0 50px
-//   .pc         751px 以上で表示
-//   .sp         750px 以下で表示・fixed-top・背景 #d6d6d6
-//   .fontb-b    fot-klee-pro / 600 / #323c3c
+// 再現にあたって参照した実際の値:
+//
+//   Bootstrap 4.5.0
+//     .navbar                                   padding: .5rem 1rem / flex / wrap
+//                                               align-items:center / justify-content:space-between
+//     .navbar-nav                               flex / list-style:none / padding-left:0 / margin-bottom:0
+//     .nav-link                                 display:block / padding: .5rem 1rem
+//     .navbar-expand-xl .navbar-nav .nav-link   padding 左右 .5rem（1200px 以上）
+//     .navbar-expand-xl .navbar-collapse        flex / flex-basis:auto（1200px 以上）
+//     .navbar-light .navbar-nav .nav-link       color: rgba(0,0,0,.5)
+//     同 :hover                                 color: rgba(0,0,0,.7)
+//
+//   public/css/style.css
+//     .logowidth   width:90% / max-width:400px / padding: 80px 0 50px
+//     .pc          751px 以上で表示
+//     .sp          750px 以下で表示・fixed-top・背景 #d6d6d6
+//     .fontb-b     fot-klee-pro / font-weight:600 / color:#323c3c
+//
+// 文字色は .fontb-b の #323c3c ではなく .navbar-light の rgba(0,0,0,.5) が
+// 効く（.nav-link は a 要素に直接当たるため、ul からの継承より優先される）。
+// 旧サイトのナビが薄いグレーに見えるのはこのため。
+//
+// 1200px 未満でハンバーガーになるのも navbar-expand-xl の挙動どおり。
 //
 // フォントは fot-klee-pro(Adobe Fonts)が契約ドメイン限定で
-// このページには読み込んでいないため、代替の Noto Serif JP を使う。
+// このページには読み込んでいないため、代替の Noto Serif JP になる。
 import { Image } from 'astro:assets';
 import logo from '../assets/logo-horizontal.png';
 import { mainNav } from '../data/oldSite';
 ---
 
 <!-- スマホ用（750px 以下）。旧サイトと同じく画面上部に固定する -->
-<div class="fixed inset-x-0 top-0 z-50 bg-[#d6d6d6] min-[751px]:hidden">
+<div class="fixed inset-x-0 top-0 z-50 flex flex-wrap items-center bg-[#d6d6d6] px-4 py-2 min-[751px]:hidden">
 	<button
-		id="oldstyle-menu-toggle"
+		id="oldstyle-sp-toggle"
 		type="button"
 		aria-expanded="false"
-		aria-controls="oldstyle-menu"
-		class="flex items-center gap-2 px-4 py-3 text-[#323c3c]"
+		aria-controls="oldstyle-sp-menu"
+		class="flex items-center gap-2 px-3 py-1 text-xl leading-none text-black/50"
 	>
-		<span class="inline-block h-5 w-6" aria-hidden="true">
-			<span class="block h-0.5 w-full bg-[#323c3c]"></span>
-			<span class="mt-1.5 block h-0.5 w-full bg-[#323c3c]"></span>
-			<span class="mt-1.5 block h-0.5 w-full bg-[#323c3c]"></span>
+		<span class="inline-block h-6 w-6 shrink-0" aria-hidden="true">
+			<span class="mt-1 block h-0.5 w-full bg-black/50"></span>
+			<span class="mt-1.5 block h-0.5 w-full bg-black/50"></span>
+			<span class="mt-1.5 block h-0.5 w-full bg-black/50"></span>
 		</span>
-		<span class="text-sm">MENU</span>
+		<span class="text-base">MENU</span>
 	</button>
 
-	<nav id="oldstyle-menu" class="hidden border-t border-[#dee2e6] pb-1">
-		<ul class="m-0 flex list-none flex-col p-0">
+	<nav id="oldstyle-sp-menu" class="hidden w-full">
+		<ul
+			class="m-0 flex list-none flex-col border-y border-[#dee2e6] p-0 pb-1 font-serif font-semibold"
+		>
 			{
 				mainNav.map((item) => (
 					<li>
-						<a
-							href={item.href}
-							class="block px-4 py-2 font-serif text-[#323c3c] no-underline hover:opacity-70"
-						>
+						<a href={item.href} class="block px-4 py-2 text-black/50 no-underline hover:text-black/70">
 							{item.label}
 						</a>
 					</li>
@@ -58,40 +75,65 @@ import { mainNav } from '../data/oldSite';
 </div>
 
 <header class="bg-white">
-	<!-- ロゴ -->
+	<!-- ロゴ（.logowidth 相当） -->
 	<div class="mx-auto w-[90%] max-w-[400px] pb-[50px] pt-24 min-[751px]:pt-20">
 		<a href="/">
 			<Image src={logo} alt="たかみくらファーム" width={400} densities={[1, 2]} loading="eager" />
 		</a>
 	</div>
 
-	<!-- ナビゲーション（751px 以上） -->
-	<nav class="hidden px-4 min-[751px]:block">
-		<ul
-			class="m-0 flex list-none flex-wrap justify-end gap-x-1 border-y border-[#dee2e6] p-0 pb-1"
+	<!-- ナビゲーション（751px 以上）。.navbar 相当 -->
+	<nav class="hidden flex-wrap items-center justify-between px-4 py-2 min-[751px]:flex">
+		<!-- 1200px 未満はハンバーガー（navbar-expand-xl の挙動） -->
+		<button
+			id="oldstyle-pc-toggle"
+			type="button"
+			aria-expanded="false"
+			aria-controls="oldstyle-pc-menu"
+			class="px-3 py-1 text-black/50 min-[1200px]:hidden"
 		>
-			{
-				mainNav.map((item) => (
-					<li>
-						<a
-							href={item.href}
-							class="block px-4 py-2 font-serif font-semibold text-[#323c3c] no-underline hover:opacity-70"
-						>
-							{item.label}
-						</a>
-					</li>
-				))
-			}
-		</ul>
+			<span class="inline-block h-6 w-6" aria-hidden="true">
+				<span class="mt-1 block h-0.5 w-full bg-black/50"></span>
+				<span class="mt-1.5 block h-0.5 w-full bg-black/50"></span>
+				<span class="mt-1.5 block h-0.5 w-full bg-black/50"></span>
+			</span>
+		</button>
+
+		<!-- .navbar-collapse 相当。1200px 以上では常に表示し、ul を右寄せする -->
+		<div
+			id="oldstyle-pc-menu"
+			class="hidden w-full min-[1200px]:flex min-[1200px]:w-auto min-[1200px]:flex-auto"
+		>
+			<ul
+				class="m-0 flex list-none flex-col border-y border-[#dee2e6] p-0 pb-1 font-serif font-semibold min-[1200px]:ml-auto min-[1200px]:flex-row"
+			>
+				{
+					mainNav.map((item) => (
+						<li>
+							<a
+								href={item.href}
+								class="block px-4 py-2 text-black/50 no-underline hover:text-black/70 min-[1200px]:px-2"
+							>
+								{item.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</div>
 	</nav>
 </header>
 
 <script>
-	const toggle = document.getElementById('oldstyle-menu-toggle');
-	const menu = document.getElementById('oldstyle-menu');
+	function bindToggle(buttonId: string, menuId: string) {
+		const button = document.getElementById(buttonId);
+		const menu = document.getElementById(menuId);
+		button?.addEventListener('click', () => {
+			const isOpen = menu?.classList.toggle('hidden') === false;
+			button.setAttribute('aria-expanded', String(isOpen));
+		});
+	}
 
-	toggle?.addEventListener('click', () => {
-		const isOpen = menu?.classList.toggle('hidden') === false;
-		toggle.setAttribute('aria-expanded', String(isOpen));
-	});
+	bindToggle('oldstyle-sp-toggle', 'oldstyle-sp-menu');
+	bindToggle('oldstyle-pc-toggle', 'oldstyle-pc-menu');
 </script>
