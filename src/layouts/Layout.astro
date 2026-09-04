@@ -5,9 +5,15 @@ import { site } from '../data/site';
 interface Props {
 	title?: string;
 	description?: string;
+	/** ページ全体を明朝体（Noto Serif JP）で組む場合に true。和土滋味のページで使う。 */
+	serif?: boolean;
 }
 
-const { title = `${site.name} | ${site.brand}`, description = site.description } = Astro.props;
+const {
+	title = `${site.name} | ${site.brand}`,
+	description = site.description,
+	serif = false,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -29,7 +35,7 @@ const { title = `${site.name} | ${site.brand}`, description = site.description }
 
 		<title>{title}</title>
 	</head>
-	<body>
+	<body class={serif ? 'page-serif' : undefined}>
 		<slot />
 	</body>
 

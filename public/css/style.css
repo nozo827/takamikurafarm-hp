@@ -73,13 +73,13 @@ a:hover {
 
 /* fonts */
 .fontb {
-  font-family: fot-klee-pro, sans-serif;
+  font-family: fot-klee-pro, "Noto Serif JP", serif;
   font-weight: 500;
   font-style: normal;
   color: #323c3c;
 }
 .fontb-b {
-  font-family: fot-klee-pro, sans-serif;
+  font-family: fot-klee-pro, "Noto Serif JP", serif;
   font-weight: 600;
   font-style: bold;
   color: #323c3c;
@@ -130,7 +130,7 @@ a:hover {
   border-bottom: 1px solid #323c3c;
 }
 .tsukushiA {
-  font-family: fot-tsukuaoldmin-pr6n, sans-serif;
+  font-family: fot-tsukuaoldmin-pr6n, "Noto Serif JP", serif;
   font-weight: 300;
   font-style: normal;
 }
@@ -300,7 +300,7 @@ div.eyecatch > img {
   object-fit: cover;
 }
 article.wp-article > h3 {
-  font-family: fot-klee-pro, sans-serif;
+  font-family: fot-klee-pro, "Noto Serif JP", serif;
   font-weight: 700;
   font-style: normal;
   font-size: 17px;
@@ -313,7 +313,7 @@ article.wp-article > h3 {
 }
 @media (min-width: 1200px) {
   article.wp-article > h3 {
-    font-family: fot-klee-pro, sans-serif;
+    font-family: fot-klee-pro, "Noto Serif JP", serif;
     font-weight: 700;
     font-style: normal;
     font-size: 17px;
@@ -321,7 +321,7 @@ article.wp-article > h3 {
   }
 }
 article.wp-article > p {
-  font-family: fot-klee-pro, sans-serif;
+  font-family: fot-klee-pro, "Noto Serif JP", serif;
   font-weight: 400;
   font-style: normal;
   color: #6b5b50;
@@ -374,7 +374,7 @@ div.eyecatch > img {
   object-fit: cover;
 }
 article.wp-article > h3 {
-  font-family: fot-klee-pro, sans-serif;
+  font-family: fot-klee-pro, "Noto Serif JP", serif;
   font-weight: 700;
   font-style: normal;
   font-size: 17px;
@@ -387,7 +387,7 @@ article.wp-article > h3 {
 }
 @media (min-width: 1200px) {
   article.wp-article > h3 {
-    font-family: fot-klee-pro, sans-serif;
+    font-family: fot-klee-pro, "Noto Serif JP", serif;
     font-weight: 700;
     font-style: normal;
     font-size: 17px;
@@ -395,7 +395,7 @@ article.wp-article > h3 {
   }
 }
 article.wp-article > p {
-  font-family: fot-klee-pro, sans-serif;
+  font-family: fot-klee-pro, "Noto Serif JP", serif;
   font-weight: 400;
   font-style: normal;
   color: #6b5b50;
@@ -439,7 +439,7 @@ article.wp-article > h3 > a:hover {
 
 
 .sakurakeisetsu{
-  font-family:SakuraKeisetsu;
+  font-family: SakuraKeisetsu, "Noto Serif JP", serif;
 }
 .outer{
   display: table;
@@ -477,3 +477,16 @@ article.wp-article > h3 > a:hover {
 
 
 
+
+/* ------------------------------------------------------------------
+   .tenmincho の定義（2026-09-04 追加）
+
+   サイドバーのメニューなどで 62 箇所使われているが、style.css には
+   定義が存在せず、ブラウザの既定フォントで表示されていた。
+   読み込んでいる css/humberger.css がサーバー上に存在せず 404 を
+   返していたため、そちらに定義されていたものと思われる。
+   クラス名（天/典 明朝）に沿って明朝体を指定する。
+   ------------------------------------------------------------------ */
+.tenmincho {
+  font-family: "Noto Serif JP", serif;
+}
