@@ -29,6 +29,50 @@
   to = "/"
   status = 301
 
+# --- 画像の形式変更にともなう旧 URL の引き継ぎ -----------------------------
+# 写真を PNG で保存していたものを JPEG に変換した際、拡張子が変わった。
+# 外部サイトから直接リンクされていた場合に切れないよう転送する。
+
+[[redirects]]
+  from = "/images/takamikura_signifiantsignifie_2.png"
+  to = "/images/takamikura_signifiantsignifie_2.jpg"
+  status = 301
+
+[[redirects]]
+  from = "/images/takamikura_signifiantsignifie_1.png"
+  to = "/images/takamikura_signifiantsignifie_1.jpg"
+  status = 301
+
+[[redirects]]
+  from = "/images/takamikura3.png"
+  to = "/images/takamikura3.jpg"
+  status = 301
+
+[[redirects]]
+  from = "/images/takamikura4.png"
+  to = "/images/takamikura4.jpg"
+  status = 301
+
+[[redirects]]
+  from = "/images/banner6.png"
+  to = "/images/banner6.jpg"
+  status = 301
+
+[[redirects]]
+  from = "/images/takamikura1.png"
+  to = "/images/takamikura1.jpg"
+  status = 301
+
+[[redirects]]
+  from = "/images/banner1.png"
+  to = "/images/banner1.jpg"
+  status = 301
+
+[[redirects]]
+  from = "/images/takamikura2.png"
+  to = "/images/takamikura2.jpg"
+  status = 301
+
 # --- 公開前のみ有効にする設定 ----------------------------------------------
 # 確認用の仮サイト(*.netlify.app)が検索結果に載らないようにする。
 # 仮サイトが索引されると、本番の takamikurafarm.com と重複コンテンツとして
