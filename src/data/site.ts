@@ -118,12 +118,6 @@ export const productCategories: Array<{
 	{ name: 'その他', count: 2, image: otherPhoto },
 ];
 
-export const access = {
-	title: '高御位山の麓へ',
-	body: '兵庫県加古川市、霊峰・高御位山の麓。豊かな自然と循環する大地に抱かれたこの場所で、たかみくらファームは野菜と果実を育てています。',
-	area: '兵庫県加古川市（高御位山 麓）',
-};
-
 export const contact = {
 	note: '下記のお問合わせ先もしくはお問い合わせフォームから、お気軽にお問合わせください。',
 	companyName: '株式会社　たかみくらファーム',
