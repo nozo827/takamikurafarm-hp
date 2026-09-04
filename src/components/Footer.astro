@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-horizontal.png';
 import { contact, nav, site } from '../data/site';
 
 const year = new Date().getFullYear();
@@ -8,10 +10,20 @@ const year = new Date().getFullYear();
 	<div class="mx-auto max-w-6xl px-6 sm:px-8">
 		<div class="grid gap-12 sm:grid-cols-3">
 			<div>
-				<p class="font-serif text-xl text-cream">{site.name}</p>
-				<p class="mt-1 text-xs tracking-[0.35em] text-gold-light">
-					{site.brand}
-				</p>
+				<!--
+					ロゴは文字が黒・紋章が藍緑のため、濃い背景ではそのままだと読めない。
+					白版のロゴファイルが存在しないので、brightness-0 invert で白抜きにしている。
+					（白版が用意できたら、このクラスを外して差し替えるのが望ましい）
+				-->
+				<a href="/" class="block max-w-60">
+					<Image
+						src={logo}
+						alt={site.name}
+						width={520}
+						densities={[1, 2]}
+						class="w-full opacity-90 brightness-0 invert"
+					/>
+				</a>
 				<a
 					href="/contact.html"
 					class="mt-6 inline-block text-sm text-cream/70 underline decoration-gold-light/40 underline-offset-4 transition-colors hover:text-gold-light"

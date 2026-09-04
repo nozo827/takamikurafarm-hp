@@ -9,7 +9,7 @@
 // 外部スクリプトはすべて is:inline を付けて、記述順と内容をそのまま維持する
 // （jQuery より後に $ を使うスクリプトが来る順序に依存しているため）。
 import OldHeader from '../components/old/OldHeader.astro';
-import OldFooter from '../components/old/OldFooter.astro';
+import OldSiteFooter from '../components/old/OldSiteFooter.astro';
 import { oldSiteMeta } from '../data/oldSite';
 
 interface Props {
@@ -17,15 +17,12 @@ interface Props {
 	description?: string;
 	/** OGP の og:url。省略時はサイトのトップ。 */
 	ogUrl?: string;
-	/** フッタを出すか。元サイトではトップページのみフッタを持っていた。 */
-	showFooter?: boolean;
 }
 
 const {
 	title = oldSiteMeta.title,
 	description = oldSiteMeta.description,
 	ogUrl = oldSiteMeta.siteUrl,
-	showFooter = false,
 } = Astro.props;
 ---
 
@@ -147,7 +144,7 @@ const {
 
 		<slot />
 
-		{showFooter && <OldFooter />}
+		<OldSiteFooter />
 
 		<!-- ページ固有のスクリプト -->
 		<slot name="scripts" />

@@ -1,0 +1,177 @@
+---
+// 旧デザインのページ用フッタ。
+// 新デザインのフッタ(src/components/Footer.astro)と同じ構成だが、
+// 旧ページには Tailwind を読み込めない（Bootstrap の見た目が壊れるため）ので、
+// 同等の見た目を素の CSS で組んでいる。
+//
+// 背景色は新デザインの soil(#3f2f22) ではなく #323c3c を使う。
+// これは旧サイトの style.css で本文色として最も多く使われている色で、
+// モノトーン基調の旧ページに馴染み、かつロゴの藍緑色とも調和する。
+import { Image } from 'astro:assets';
+import logo from '../../assets/logo-horizontal.png';
+import { contact, site } from '../../data/site';
+import { mainNav } from '../../data/oldSite';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="oldfoot">
+	<div class="oldfoot__inner">
+		<div class="oldfoot__grid">
+			<div>
+				<a href="/" class="oldfoot__logo">
+					<Image src={logo} alt={site.name} width={520} densities={[1, 2]} />
+				</a>
+				<a href="/contact.html" class="oldfoot__contact">お問い合わせはこちら</a>
+			</div>
+
+			<div>
+				<p class="oldfoot__label">MENU</p>
+				<nav class="oldfoot__list">
+					{mainNav.map((item) => <a href={item.href}>{item.label}</a>)}
+				</nav>
+			</div>
+
+			<div>
+				<p class="oldfoot__label">SHOP / SNS</p>
+				<div class="oldfoot__list">
+					<a href={site.onlineShopUrl} target="_blank" rel="noopener noreferrer">
+						オンラインショップ ↗
+					</a>
+					{
+						contact.sns.map((s) => (
+							<a href={s.href} target="_blank" rel="noopener noreferrer">
+								{s.label}
+							</a>
+						))
+					}
+				</div>
+			</div>
+		</div>
+
+		<div class="oldfoot__bottom">
+			<p>&copy; {year} {site.name}</p>
+			<a href="/">↑ トップへ戻る</a>
+		</div>
+	</div>
+</footer>
+
+<style>
+	.oldfoot {
+		background-color: #323c3c;
+		color: rgba(244, 244, 241, 0.72);
+		padding: 4rem 0;
+		/* Bootstrap の container-fluid の外に置くため、自前で全幅にする */
+		width: 100%;
+	}
+
+	.oldfoot__inner {
+		max-width: 72rem;
+		margin: 0 auto;
+		padding: 0 1.5rem;
+	}
+
+	.oldfoot__grid {
+		display: grid;
+		gap: 3rem;
+	}
+
+	@media (min-width: 576px) {
+		.oldfoot {
+			padding: 5rem 0;
+		}
+		.oldfoot__grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+		.oldfoot__inner {
+			padding: 0 2rem;
+		}
+	}
+
+	/*
+		ロゴは文字が黒・紋章が藍緑のため、濃い背景ではそのままだと読めない。
+		白版のロゴファイルが存在しないので、フィルタで白抜きにしている。
+		（白版が用意できたら、この filter を外して差し替えるのが望ましい）
+	*/
+	.oldfoot__logo {
+		display: block;
+		max-width: 15rem;
+	}
+
+	.oldfoot__logo :global(img) {
+		width: 100%;
+		height: auto;
+		filter: brightness(0) invert(1);
+		opacity: 0.92;
+	}
+
+	.oldfoot__contact {
+		display: inline-block;
+		margin-top: 1.5rem;
+		font-size: 0.875rem;
+		color: rgba(244, 244, 241, 0.7);
+		text-decoration: underline;
+		text-decoration-color: rgba(168, 181, 176, 0.4);
+		text-underline-offset: 4px;
+		transition: color 0.2s;
+	}
+
+	.oldfoot__label {
+		font-size: 0.75rem;
+		letter-spacing: 0.3em;
+		color: #a8b5b0;
+		margin: 0;
+	}
+
+	.oldfoot__list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		margin-top: 1rem;
+	}
+
+	.oldfoot__list a {
+		font-size: 0.875rem;
+		color: rgba(244, 244, 241, 0.7);
+		text-decoration: none;
+		transition: color 0.2s;
+	}
+
+	.oldfoot__contact:hover,
+	.oldfoot__list a:hover {
+		color: #ffffff;
+	}
+
+	.oldfoot__bottom {
+		margin-top: 3.5rem;
+		padding-top: 2rem;
+		border-top: 1px solid rgba(244, 244, 241, 0.12);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+		font-size: 0.75rem;
+		color: rgba(244, 244, 241, 0.5);
+	}
+
+	.oldfoot__bottom p {
+		margin: 0;
+	}
+
+	.oldfoot__bottom a {
+		color: inherit;
+		text-decoration: none;
+		transition: color 0.2s;
+	}
+
+	.oldfoot__bottom a:hover {
+		color: #ffffff;
+	}
+
+	@media (min-width: 576px) {
+		.oldfoot__bottom {
+			flex-direction: row;
+			justify-content: space-between;
+		}
+	}
+</style>
