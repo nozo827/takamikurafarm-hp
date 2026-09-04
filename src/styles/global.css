@@ -1,15 +1,39 @@
 @import "tailwindcss";
 
+/*
+	配色は旧デザインのページ（Bootstrap 版）に合わせて調整している。
+	旧サイトの style.css で実際に使われている色を基準にした。
+
+	  #323c3c  本文色。最も多く使われている緑みの濃いスレート
+	  #866f55  くすんだ茶
+	  #6b5b50  暖かみのあるグレーブラウン
+	  #e2d9c8  ベージュ
+	  #d6d6d6  ライトグレー
+
+	当初は暖色寄り（cream #f7f2e7 / soil #3f2f22 / gold #b4894f）だったが、
+	茶色が強く旧ページから浮いていたため、寒色寄りのスレート基調に振り直した。
+	トークン名は変えずに値だけ差し替えているので、各コンポーネントの
+	記述には手を入れていない。
+*/
 @theme {
-	--color-cream: #f7f2e7;
-	--color-cream-dark: #efe6d3;
-	--color-ink: #2b2620;
-	--color-soil: #3f2f22;
-	--color-soil-light: #5a4632;
-	--color-moss: #55603f;
-	--color-moss-light: #7c8a5c;
-	--color-gold: #b4894f;
-	--color-gold-light: #d6b57f;
+	/* 背景。黄みの強いクリームから、旧サイトの白に近い中間色へ */
+	--color-cream: #f4f3ed;
+	--color-cream-dark: #e6e4da;
+
+	/* 本文。旧サイトの #323c3c と同系の寒色の暗色 */
+	--color-ink: #2f3634;
+
+	/* 濃い面（フッタなど）。旧ページのフッタで採用した色をそのまま使う */
+	--color-soil: #323c3c;
+	--color-soil-light: #48544f;
+
+	/* 緑。スレートと馴染むよう、やや灰味を足したオリーブ */
+	--color-moss: #57654f;
+	--color-moss-light: #8b9a7f;
+
+	/* アクセント。旧サイトの #866f55 に近い、彩度を抑えた暖色 */
+	--color-gold: #93795a;
+	--color-gold-light: #c0ad8f;
 
 	--font-serif: "Noto Serif JP", serif;
 	--font-sans: "Noto Sans JP", "Hiragino Sans", sans-serif;
