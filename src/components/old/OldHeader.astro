@@ -1,0 +1,38 @@
+---
+// 旧デザインのヘッダ。ロゴ＋PC 用ナビ＋スマホ用ナビ。
+// 元の HTML では 3 つの nav がすべて id="navbar6" を共有しており、
+// Bootstrap の collapse が先頭の要素しか対象にできなかった。
+// ここでは id を分けて、それぞれのボタンが自分のナビを開閉するようにしている。
+import OldNav from './OldNav.astro';
+---
+
+<div class="container-fluid">
+	<header>
+		<!-- 会社ロゴ -->
+		<div class="logowidth">
+			<a href="/"><img class="mw-100" src="/images/logo1.png" alt="たかみくらファーム" /></a>
+		</div>
+
+		<!-- ナビゲーション（PC） -->
+		<nav class="navbar navbar-expand-xl navbar-light pc" style="background-color: #ffffff;">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarPc">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<span class="border-top"></span>
+			<OldNav id="navbarPc" />
+		</nav>
+
+		<!-- ナビゲーション（スマホ） -->
+		<nav
+			class="navbar navbar-expand-xl navbar-light fixed-top sp"
+			style="background-color: #d6d6d6;"
+		>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSp">
+				<span class="navbar-toggler-icon"></span>
+				<p style="display:inline">MENU</p>
+			</button>
+			<span class="border-top"></span>
+			<OldNav id="navbarSp" />
+		</nav>
+	</header>
+</div>

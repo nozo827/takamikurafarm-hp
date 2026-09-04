@@ -19,7 +19,18 @@ import { contact, site } from '../data/site';
 			</div>
 
 			<div class="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-16">
-				<form id="contact-form" class="js-reveal order-1 flex flex-col gap-6 lg:order-2">
+				<!--
+					送信先は formrun。旧サイト(contact.html)で実際に運用されていた
+					エンドポイントをそのまま引き継いでいる。
+					項目名(name)は formrun 側の設定と一致させる必要があるため、
+					日本語のまま変更しないこと。
+				-->
+				<form
+					id="contact-form"
+					action="https://form.run/api/v1/r/gxpti6wern8c34itsi643d5h"
+					method="post"
+					class="js-reveal order-1 flex flex-col gap-6 lg:order-2"
+				>
 					<p class="text-xs tracking-[0.3em] text-moss">お問い合わせフォーム</p>
 
 					<div>
@@ -28,7 +39,7 @@ import { contact, site } from '../data/site';
 						</label>
 						<input
 							id="name"
-							name="name"
+							name="お名前"
 							type="text"
 							required
 							class="mt-2 w-full rounded-sm border border-soil/20 bg-white px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-gold"
@@ -39,7 +50,7 @@ import { contact, site } from '../data/site';
 						<label for="organization" class="text-sm text-soil">所属</label>
 						<input
 							id="organization"
-							name="organization"
+							name="所属"
 							type="text"
 							class="mt-2 w-full rounded-sm border border-soil/20 bg-white px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-gold"
 						/>
@@ -51,7 +62,7 @@ import { contact, site } from '../data/site';
 						</label>
 						<input
 							id="email"
-							name="email"
+							name="メールアドレス"
 							type="email"
 							required
 							class="mt-2 w-full rounded-sm border border-soil/20 bg-white px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-gold"
@@ -64,11 +75,17 @@ import { contact, site } from '../data/site';
 						</label>
 						<textarea
 							id="message"
-							name="message"
+							name="お問い合わせ"
 							rows="6"
 							required
 							class="mt-2 w-full rounded-sm border border-soil/20 bg-white px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-gold"
 						></textarea>
+					</div>
+
+					<!-- ボット投稿をブロックするための項目（利用者には見えない） -->
+					<div class="absolute h-px w-px overflow-hidden" aria-hidden="true">
+						<label for="_formrun_gotcha">If you are a human, ignore this field</label>
+						<input type="text" name="_formrun_gotcha" id="_formrun_gotcha" tabindex="-1" />
 					</div>
 
 					<button
@@ -78,7 +95,7 @@ import { contact, site } from '../data/site';
 						送信する
 					</button>
 					<p class="text-xs leading-6 text-ink/50">
-						送信ボタンを押すと、入力内容を記載したメールがお使いのメールソフトで作成されます。内容をご確認のうえ、送信してください。
+						送信いただいた内容は、担当者が確認のうえご返信いたします。お急ぎの場合はお電話でもご連絡いただけます。
 					</p>
 				</form>
 
@@ -119,29 +136,3 @@ import { contact, site } from '../data/site';
 	</main>
 	<Footer />
 </Layout>
-
-<script define:vars={{ email: contact.email }}>
-	const form = document.getElementById('contact-form');
-
-	form?.addEventListener('submit', (e) => {
-		e.preventDefault();
-
-		const data = new FormData(form);
-		const name = data.get('name') ?? '';
-		const organization = data.get('organization') ?? '';
-		const fromEmail = data.get('email') ?? '';
-		const message = data.get('message') ?? '';
-
-		const subject = `お問い合わせ（${name}様）`;
-		const body = [
-			`お名前: ${name}`,
-			`所属: ${organization}`,
-			`メールアドレス: ${fromEmail}`,
-			'',
-			'お問い合わせ内容:',
-			message,
-		].join('\n');
-
-		window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-	});
-</script>

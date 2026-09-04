@@ -9,11 +9,26 @@
   # package.json の engines (>=22.12.0) を満たすバージョンを明示する。
   NODE_VERSION = "22"
 
-# --- 公開前のみ有効にする設定 ---------------------------------------------
-# 確認用の仮サイト(*.netlify.app)が Google などの検索結果に載らないようにする。
-# 本番ドメイン(takamikurafarm.com)で正式公開するときに、この [[headers]]
-# ブロックごと削除すること。消し忘れると本番サイトが検索に出なくなる。
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Robots-Tag = "noindex, nofollow"
+# --- 旧 URL の引き継ぎ -----------------------------------------------------
+# 静的ページ(/about.html, /shop.html, /hurusato.html, /contact.html)は
+# astro.config.mjs の build.format = 'file' により URL が変わらないため、
+# リダイレクトは不要。
+#
+# /blog/ の WordPress は Netlify へ移行しないため失われる。
+# 外部リンクや検索結果から来た人が 404 に落ちないよう、トップへ送る。
+[[redirects]]
+  from = "/blog/*"
+  to = "/"
+  status = 301
+  force = true
+
+# 竹のはなのページは移行前からサーバー上に存在せず 404 だった。
+# 念のためトップへ送っておく。
+[[redirects]]
+  from = "/takenohana.html"
+  to = "/"
+  status = 301
+
+# --- 注意 ------------------------------------------------------------------
+# 確認用サイトで使っていた X-Robots-Tag: noindex は、本番公開にあたり削除した。
+# 残したままだと takamikurafarm.com が検索結果から消えるため、再追加しないこと。

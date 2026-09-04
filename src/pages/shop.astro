@@ -1,0 +1,12 @@
+---
+// お取り扱い店（STORE LIST）。旧サイトのデザインをそのまま移植。
+import OldLayout from '../layouts/OldLayout.astro';
+import bodyHtml from '../legacy/shop.body.html?raw';
+---
+
+<OldLayout
+	title="お取り扱い店｜株式会社たかみくらファーム"
+	ogUrl="https://takamikurafarm.com/shop.html"
+>
+	<Fragment set:html={bodyHtml} />
+</OldLayout>

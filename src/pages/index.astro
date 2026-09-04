@@ -1,32 +1,71 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import Hero from '../components/sections/Hero.astro';
-import Intro from '../components/sections/Intro.astro';
-import News from '../components/sections/News.astro';
-import Concept from '../components/sections/Concept.astro';
-import Soil from '../components/sections/Soil.astro';
-import Taste from '../components/sections/Taste.astro';
-import Partner from '../components/sections/Partner.astro';
-import Products from '../components/sections/Products.astro';
-import Access from '../components/sections/Access.astro';
+// トップページ。旧サイト（Bootstrap 版）のデザインをそのまま移植したもの。
+// 本文の HTML は src/legacy/index.body.html を ?raw で読み込み、set:html で描画する。
+// こうすることで、元の HTML に含まれる波括弧などを Astro が式として
+// 解釈してしまう事故を避けている。
+import OldLayout from '../layouts/OldLayout.astro';
+import bodyHtml from '../legacy/index.body.html?raw';
 ---
 
-<Layout>
-	<Header />
-	<main>
-		<div class="relative h-[200svh]">
-			<Hero />
-			<Intro />
-		</div>
-		<News />
-		<Concept />
-		<Soil />
-		<Taste />
-		<Partner />
-		<Products />
-		<Access />
-	</main>
-	<Footer />
-</Layout>
+<OldLayout showFooter={true}>
+	<Fragment set:html={bodyHtml} />
+
+	<Fragment slot="scripts">
+		<!-- スライドショー（Swiper） -->
+		<script is:inline src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+		<script is:inline>
+			var swiper = new Swiper('.swiper-container', {
+				loop: true,
+				effect: 'fade',
+				autoplay: {
+					delay: 5000,
+				},
+				speed: 2000,
+				navigation: {
+					nextEl: '.swiper-button-next',
+					prevEl: '.swiper-button-prev',
+				},
+			});
+		</script>
+
+		<!--
+			お知らせ一覧。news.takamikurafarm.com の WordPress から REST API で取得する。
+			このサブドメインはロリポップ！に残るため、本体を Netlify へ移した後も動作する。
+			将来この WordPress を停止する場合は、この取得処理も差し替えること。
+
+			なお /blog/ の「みんなのレシピ集」を取得していた処理は、
+			Netlify 移行で /blog/ が失われるため削除した。
+		-->
+		<script is:inline>
+			$(function () {
+				$.ajax({
+					type: 'GET',
+					url: 'https://news.takamikurafarm.com/wp-json/wp/v2/posts?_embed',
+					dataType: 'json',
+				})
+					.done(function (json) {
+						var html = '';
+						$.each(json, function (i, row) {
+							var title = row.title.rendered;
+							var link = row.link;
+							var thumbnail;
+							if (row['_embedded']['wp:featuredmedia']) {
+								thumbnail =
+									row['_embedded']['wp:featuredmedia'][0]['media_details']['sizes']['full'][
+										'source_url'
+									];
+							}
+							html += '<article class="wp-article">';
+							html += '<div class="eyecatch"><img src="' + thumbnail + '"></div>';
+							html += '<h3><a href="' + link + '">' + title + '</a></h3>';
+							html += '</article>';
+						});
+						$('#news').append(html);
+					})
+					.fail(function () {
+						console.error('お知らせの取得に失敗しました。');
+					});
+			});
+		</script>
+	</Fragment>
+</OldLayout>

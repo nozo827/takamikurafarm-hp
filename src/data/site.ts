@@ -20,12 +20,17 @@ export const site = {
 	onlineShopUrl: 'https://shop.takamikurafarm.com/',
 };
 
+// 新デザイン側ヘッダのナビゲーション。
+// 旧デザイン側（src/data/oldSite.ts の mainNav）と行き先を完全に一致させる。
+// 見た目は 2 種類あるが、どのページからでも同じ場所へ行けるようにするため。
+// オンラインショップは Header.astro 側で独立したボタンとして表示するので、ここには含めない。
 export const nav = [
-	{ label: 'お知らせ', href: '/#news' },
-	{ label: 'コンセプト', href: '/#concept' },
-	{ label: '商品', href: '/#products' },
-	{ label: 'アクセス', href: '/#access' },
-	{ label: 'お問い合わせ', href: '/contact' },
+	{ label: 'トップ', href: '/' },
+	{ label: '和土滋味', href: '/about.html' },
+	{ label: 'STORE LIST', href: '/shop.html' },
+	{ label: 'ふるさと納税', href: '/hurusato.html' },
+	{ label: 'お知らせ', href: '/news.html' },
+	{ label: 'お問い合わせ', href: '/contact.html' },
 ] as const;
 
 // お知らせ(フォールバック用の静的データ)。

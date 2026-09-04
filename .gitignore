@@ -22,3 +22,11 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# 認証情報（誤コミット防止）
+# 実体は ~/.config/takamikurafarm/lolipop.env に置いている
+*.env
+!.env.example
+*credentials*
+*.pem
+*.key

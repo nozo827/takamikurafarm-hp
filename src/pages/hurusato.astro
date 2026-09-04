@@ -1,0 +1,12 @@
+---
+// ふるさと納税。旧サイトのデザインをそのまま移植。
+import OldLayout from '../layouts/OldLayout.astro';
+import bodyHtml from '../legacy/hurusato.body.html?raw';
+---
+
+<OldLayout
+	title="ふるさと納税｜株式会社たかみくらファーム"
+	ogUrl="https://takamikurafarm.com/hurusato.html"
+>
+	<Fragment set:html={bodyHtml} />
+</OldLayout>

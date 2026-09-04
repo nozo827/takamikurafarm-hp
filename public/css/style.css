@@ -1,0 +1,479 @@
+.mw-100 {
+  height:auto;
+}
+
+.h-2 {
+  height: 1.5em;
+}
+
+li {
+  list-style-type:none;
+  display: block;
+}
+
+.bigicon {
+  margin-top: 50px;
+}
+@media (max-width: 600px) {
+  .bigicon {
+  margin-top: 0;
+  }
+}
+
+a {
+  text-decoration: none!important;
+  color: #212529;
+}
+a:hover {
+  text-decoration: underline rgb(17, 17, 17) !important;
+}
+
+.margin2p {
+  margin-top: 6%;
+  margin-left: 2%;
+}
+
+.left {
+  text-align: start;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.komidashi {
+  padding: 0.25em 0.5em;/*上下 左右の余白*/
+  background: transparent;/*背景透明に*/
+  border-left: solid 5px #6b5b50;/*左線*/
+}
+
+.midashi1 {
+  background:url(../images/midashi1.png) no-repeat left center;
+  padding-left:45px;
+}
+.midashi2 {
+  background:url(../images/midashi2.png) no-repeat left center;
+  padding-left:49px;
+}
+.midashi3 {
+  background:url(../images/midashi3.png) no-repeat left center;
+  padding-left:49px;
+}
+.midashi11 {
+  background:url(../images/midashi11.png) no-repeat left center;
+  background-size: 55px;
+  padding-left:62px;
+}
+.midashi12 {
+  background:url(../images/midashi12.png) no-repeat left center;
+  background-size: 55px;
+  padding-left:62px;
+}
+
+/* fonts */
+.fontb {
+  font-family: fot-klee-pro, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  color: #323c3c;
+}
+.fontb-b {
+  font-family: fot-klee-pro, sans-serif;
+  font-weight: 600;
+  font-style: bold;
+  color: #323c3c;
+}
+/* word style */
+.font1 {
+  font-size: 1.5em!important;
+}
+.wordstyle {
+  font-size: 1.5em;
+  line-height: 2em;
+  color: #6b5b50;
+}
+.wordstyle2 {
+  font-size: 1.3em;
+  line-height: 2em;
+  color: #1C66AF;
+}
+.wordstyle3 {
+  font-size: 1em;
+  line-height:1.4em;
+  color: #323c3c;
+}
+.wordstyle4 {
+  font-size: 1em;
+  line-height: 1em;
+  color: #323c3c;
+}
+.article {
+  font-size: 1.0em;
+  line-height: 1.6em;
+  color: #323c3c;
+}
+.article2 {
+  font-size: 19px!important;
+}
+.listtitle {
+  font-size: 1.1em;
+}
+.titlefont {
+  font-size: 30px;
+}
+
+.sidebar-top {
+  border-top: 1px solid #323c3c;
+}
+.sidebar-bottom {
+  border-bottom: 1px solid #323c3c;
+}
+.tsukushiA {
+  font-family: fot-tsukuaoldmin-pr6n, sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+
+/* button */
+.button {
+  font-size: 20px;
+  background: #3cb371;
+  color: #fff;
+  border-radius: 5px;
+  padding: 18px 32px;
+}
+.button:hover {
+  background: #2e8b57;
+}
+
+
+
+.logowidth {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 400px;
+  padding-top: 80px;
+  padding-bottom: 50px;
+}
+.imgtitle {
+  width: 90%;
+  max-width: 300px;
+  padding-top: 15px;
+  padding-bottom: 1px;
+}
+/* @media (max-width: 600px) {
+  .logowidth {
+  width: 300px;
+  padding-left: 5px;
+  padding-right: 20px;
+  padding-top: 40px;
+  padding-bottom: 30px;
+  }
+} */
+
+/* お知らせ欄 */
+/* .buttomspace {
+  margin-bottom: -332px!important;
+}
+@media (max-width: 600px) {
+  .buttomspace {
+    margin-bottom: initial!important;
+  }
+} */
+
+/* ハンバーガーボタン */
+.navbar-light .navbar-toggler {
+  border-color: #323c3c;
+}
+.navbar-light .navbar-toggler {
+  border-color: #323c3c;
+}
+.navbar-light .navbar-toggler-icon {
+  width: 113.5px;
+  height: 34.75px;
+  margin-left: -25px;
+  background-image: url("../images/humberger.png");
+}
+
+
+
+
+/* お問い合わせ */
+form {
+  margin-bottom: 30px;
+}
+form div {
+  margin-bottom: 14px;
+}
+label {
+  font-size: 18px;
+  margin-bottom: 10px;
+  display: block;
+}
+input[type="text"] ,
+input[type="email"] ,
+textarea {
+  background: #F5FFF7;
+  border: 1px #fff solid;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+}
+input[type="text"] ,
+input[type="email"] {
+  width: 100%;
+  max-width: 240px;
+}
+textarea {
+  width: 100%;
+  max-width: 480px;
+  height: 25rem;
+}
+input[type="submit"] {
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+}
+@media (max-width: 600px){
+  textarea {
+    width: 100%;
+    max-width: 240px;
+    height: 25rem;
+  }
+}
+  
+
+.container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+
+/* slider */
+.swiper-button-next.swiper-button-white, .swiper-button-prev.swiper-button-white {
+  --swiper-navigation-color: #e2d9c8!important;
+}
+
+
+/* news */
+div#news {
+  width: 100%;
+  position: relative;
+
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+div#news > article.wp-article {
+  /* width: 19%; */
+  /* min-width: 150px; */
+  /* margin-right: 2%; */
+  /* display: inline-block; */
+  /* vertical-align: top; */
+  /* background-color: #edf6e8; */
+  /* text-align: center; */
+
+  width:21%;
+  margin:2%;
+  height:220px;
+  min-width: 150px;
+  line-height:180px;
+  background:#ffffff;
+  text-align:center;
+}
+div#news > article.wp-article:nth-child( 3n ) {
+  margin-right: 0;
+}
+div.eyecatch > img {
+  width: 100%;
+  height: 13vw;
+  min-height: 100px;
+  max-height: 178px;
+  object-fit: cover;
+}
+article.wp-article > h3 {
+  font-family: fot-klee-pro, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 17px;
+  padding: 10px 0px 4px 0px;
+}
+@media (max-width: 600px){
+  article.wp-article > h3 {
+    font-size: 14.5px;
+  }
+}
+@media (min-width: 1200px) {
+  article.wp-article > h3 {
+    font-family: fot-klee-pro, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 17px;
+    padding: 10px 0px 4px 0px;
+  }
+}
+article.wp-article > p {
+  font-family: fot-klee-pro, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #6b5b50;
+}
+article.wp-article > h3 > a {
+  color: #6b5b50;
+}
+article.wp-article > h3 > a:hover {
+  color: #866f55;
+}
+
+
+/* new recipe list */
+div#recipe {
+  width: 100%;
+  position: relative;
+
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+div#recipe > article.wp-article {
+  /* width: 19%; */
+  /* min-width: 150px; */
+  /* margin-right: 2%; */
+  /* display: inline-block; */
+  /* vertical-align: top; */
+  /* background-color: #edf6e8; */
+  /* text-align: center; */
+
+  width:21%;
+  margin:2%;
+  height:220px;
+  min-width: 150px;
+  line-height:180px;
+  background:#ffffff;
+  text-align:center;
+}
+div#recipe > article.wp-article:nth-child( 3n ) {
+  margin-right: 0;
+}
+div.eyecatch > img {
+  width: 100%;
+  height: 13vw;
+  min-height: 100px;
+  max-height: 178px;
+  object-fit: cover;
+}
+article.wp-article > h3 {
+  font-family: fot-klee-pro, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 17px;
+  padding: 10px 0px 4px 0px;
+}
+@media (max-width: 600px){
+  article.wp-article > h3 {
+    font-size: 14.5px;
+  }
+}
+@media (min-width: 1200px) {
+  article.wp-article > h3 {
+    font-family: fot-klee-pro, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 17px;
+    padding: 10px 0px 4px 0px;
+  }
+}
+article.wp-article > p {
+  font-family: fot-klee-pro, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #6b5b50;
+}
+article.wp-article > h3 > a {
+  color: #6b5b50;
+}
+article.wp-article > h3 > a:hover {
+  color: #866f55;
+}
+
+
+
+
+
+.col-sm-4 {
+  padding-right: 0px!important;
+}
+
+
+
+/* 商品リスト */
+.ulTile{
+  display:flex;
+  flex-wrap:wrap;
+  list-style:none;
+  margin:0;
+  padding:0;
+  width: 100%;
+}
+.liTile{
+  width:21%;
+  margin:2%;
+  height:410px;
+  min-width: 150px;
+  line-height:180px;
+  background:#ffffff;
+  text-align:center;
+  font-size: 13px;
+}
+
+
+.sakurakeisetsu{
+  font-family:SakuraKeisetsu;
+}
+.outer{
+  display: table;
+  width: 100%;
+}
+.inner{
+  height:300px;
+  line-height:180px;
+  background:#d6d6d6;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 20px;
+}
+
+
+
+
+.navbar-light .navbar-toggler {
+  color: rgba(0,0,0,.5);
+  border-color: rgba(0,0,0,.0)!important;
+}
+
+
+@media(min-width:751px){
+  .sp{
+      display: none !important;
+  }
+}
+@media(max-width:750px){
+  .pc{
+      display: none !important;
+  }
+}
+
+
+

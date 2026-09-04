@@ -1,0 +1,27 @@
+---
+// 旧デザインのフッタ。ナビゲーション＋ロゴ。
+import OldNav from './OldNav.astro';
+---
+
+<div class="container-fluid">
+	<footer>
+		<!-- ナビゲーション -->
+		<nav class="navbar navbar-expand-xl navbar-light" style="background-color: #ffffff;">
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-toggle="collapse"
+				data-target="#navbarFooter"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<span class="border-top"></span>
+			<OldNav id="navbarFooter" />
+		</nav>
+
+		<!-- 会社ロゴ -->
+		<div class="logowidth">
+			<a href="/"><img class="mw-100" src="/images/logo1.png" alt="たかみくらファーム" /></a>
+		</div>
+	</footer>
+</div>
