@@ -55,6 +55,8 @@ const {
 		-->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="preconnect" href="https://typesquare.com" />
+		<link rel="preconnect" href="https://use.typekit.net" crossorigin />
 		<link
 			rel="stylesheet"
 			href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600&display=swap"
@@ -63,11 +65,17 @@ const {
 		<!-- css -->
 		<link rel="stylesheet" href="/css/style.css" />
 
-		<!-- フォント さくらぎ蛍雪（TypeSquare / モリサワ） -->
+		<!--
+			フォント さくらぎ蛍雪（TypeSquare / モリサワ）。
+			typesquare.js は約 370KB あり、同期読み込みだと本文が出るまで
+			ページ全体の描画が止まる。defer を付けて描画をブロックしないようにし、
+			書体は用意でき次第あとから当たるようにしている。
+		-->
 		<script
 			is:inline
+			defer
 			type="text/javascript"
-			src="//typesquare.com/3/tsst/script/ja/typesquare.js?6145f51534984337b6910c91ac1e02e5"
+			src="https://typesquare.com/3/tsst/script/ja/typesquare.js?6145f51534984337b6910c91ac1e02e5"
 			charset="utf-8"></script>
 
 		<!-- FOT-クレー Pro（Adobe Fonts） -->
