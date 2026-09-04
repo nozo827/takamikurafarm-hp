@@ -1,10 +1,24 @@
 ---
 import { contact, nav, site } from '../data/site';
+
+interface Props {
+	/**
+	 * true にすると、ページ上部のヘッダ(#page-top-header)が画面外に
+	 * スクロールされるまで、このヘッダを隠しておく。
+	 * 和土滋味のページのように、上部に別のヘッダがある場合に使う。
+	 */
+	revealOnScroll?: boolean;
+}
+
+const { revealOnScroll = false } = Astro.props;
 ---
 
 <header
 	id="site-header"
-	class="fixed inset-x-0 top-0 z-50 py-7 transition-[padding] duration-500 ease-out lg:py-10"
+	class:list={[
+		'fixed inset-x-0 top-0 z-50 py-7 transition-[padding] duration-500 ease-out lg:py-10',
+		revealOnScroll && 'site-header--reveal',
+	]}
 >
 	<div class="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-10">
 		<a href="/" class="flex flex-col leading-none">
@@ -112,6 +126,19 @@ import { contact, nav, site } from '../data/site';
 <script>
 	const header = document.getElementById('site-header');
 	const hero = document.getElementById('top');
+
+	// ページ上部に別のヘッダがある場合、それが画面外に出てから現れる
+	const pageTopHeader = document.getElementById('page-top-header');
+
+	if (header && pageTopHeader && header.classList.contains('site-header--reveal')) {
+		const revealIo = new IntersectionObserver(
+			([entry]) => {
+				header.classList.toggle('is-revealed', !entry.isIntersecting);
+			},
+			{ threshold: 0 }
+		);
+		revealIo.observe(pageTopHeader);
+	}
 
 	if (header && hero) {
 		const io = new IntersectionObserver(

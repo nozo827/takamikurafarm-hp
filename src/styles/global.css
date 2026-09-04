@@ -159,3 +159,42 @@ body {
 		transition: none;
 	}
 }
+
+/*
+	ページ上部に別のヘッダ（旧サイト風のヘッダ）があるページで、
+	固定ヘッダを「上のヘッダが画面外に出てから」現れるようにする。
+	Header.astro に revealOnScroll={true} を渡すと付く。
+*/
+/*
+	スマホでは旧サイト風ヘッダが上部に固定バーを出しているため、
+	このヘッダを重ねると干渉する。デスクトップ幅でのみ現れるようにする。
+	（スマホの導線は画面下部の #mobile-bar が担う）
+*/
+#site-header.site-header--reveal {
+	display: none;
+}
+
+@media (min-width: 1024px) {
+	#site-header.site-header--reveal {
+		display: block;
+		opacity: 0;
+		transform: translateY(-100%);
+		pointer-events: none;
+		transition:
+			opacity 0.4s ease,
+			transform 0.4s ease,
+			padding 0.5s ease;
+	}
+
+	#site-header.site-header--reveal.is-revealed {
+		opacity: 1;
+		transform: none;
+		pointer-events: auto;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	#site-header.site-header--reveal {
+		transition: none;
+	}
+}

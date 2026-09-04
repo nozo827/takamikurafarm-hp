@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import OldStyleHeader from '../components/OldStyleHeader.astro';
+import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Hero from '../components/sections/Hero.astro';
 import Intro from '../components/sections/Intro.astro';
@@ -15,6 +16,7 @@ import Access from '../components/sections/Access.astro';
 
 <Layout>
 	<OldStyleHeader />
+	<Header revealOnScroll={true} />
 	<main>
 		<div class="relative h-[200svh]">
 			<Hero />
