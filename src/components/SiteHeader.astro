@@ -43,7 +43,7 @@ import { mainNav } from '../data/oldSite';
 		<span>MENU</span>
 	</button>
 
-	<nav id="sitehead-sp-menu" class="collapse" aria-label="メニュー">
+	<nav id="sitehead-sp-menu" class="nav-panel" aria-label="メニュー">
 		<ul class="menu menu--stack">
 			{
 				mainNav.map((item) => (
@@ -76,7 +76,7 @@ import { mainNav } from '../data/oldSite';
 			<span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
 		</button>
 
-		<div id="sitehead-pc-menu" class="collapse pc-collapse">
+		<div id="sitehead-pc-menu" class="nav-panel nav-panel--pc">
 			<ul class="menu menu--inline">
 				{
 					mainNav.map((item) => (
@@ -150,11 +150,11 @@ import { mainNav } from '../data/oldSite';
 		margin-top: 0.35rem;
 	}
 
-	.collapse {
+	.nav-panel {
 		display: none;
 	}
 
-	.collapse.is-open {
+	.nav-panel.is-open {
 		display: block;
 	}
 
@@ -171,7 +171,7 @@ import { mainNav } from '../data/oldSite';
 		background-color: #d6d6d6;
 	}
 
-	.sp-bar .collapse {
+	.sp-bar .nav-panel {
 		width: 100%;
 	}
 
@@ -217,7 +217,7 @@ import { mainNav } from '../data/oldSite';
 			padding: 0.5rem 1rem;
 		}
 
-		.pc-collapse {
+		.nav-panel--pc {
 			width: 100%;
 		}
 	}
@@ -228,7 +228,7 @@ import { mainNav } from '../data/oldSite';
 			display: none;
 		}
 
-		.pc-collapse {
+		.nav-panel--pc {
 			display: flex;
 			flex: auto;
 			width: auto;
