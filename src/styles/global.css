@@ -146,6 +146,34 @@ body {
 	animation: hero-fade-up 1100ms ease both;
 }
 
+/*
+	TypeSquare（さくらぎ蛍雪の配信元）は、自社フォントを使う要素をいったん
+	隠しておき、フォントが届いてから表示する作りになっている。実際に
+	typesquare.js が head に差し込むのは次の 2 つ。
+
+	  body { visibility: hidden; }        読み込み中はページ全体を隠す
+	  .typesquare_option { opacity: 0; }  対象の要素だけを隠す
+
+	.typesquare_option は「その要素の font-family が TypeSquare のフォントを
+	必要とするか」を見て、スクリプトが実行時に付けて回る。
+	このサイトで SakuraKeisetsu を指定しているのは --font-serif だけなので、
+	ヒーローの見出し 2 行（和土滋味／循環する大地〜）にだけこのクラスが付く。
+
+	さらに TypeSquare は契約ドメインでしか配信しないため、localhost や
+	*.netlify.app ではフォントが永久に届かない。結果、その 2 行だけが
+	隠れたまま取り残され、遅れて現れているように見える。
+
+	フォントの到着を待たずに代替書体で先に表示し、届いたら差し替わるように
+	上書きする。あとから差し込まれる style に勝つ必要があるため !important。
+*/
+body {
+	visibility: visible !important;
+}
+
+.typesquare_option {
+	opacity: 1 !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	html {
 		scroll-behavior: auto;
