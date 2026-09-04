@@ -3,14 +3,30 @@
 // 元の HTML では 3 つの nav がすべて id="navbar6" を共有しており、
 // Bootstrap の collapse が先頭の要素しか対象にできなかった。
 // ここでは id を分けて、それぞれのボタンが自分のナビを開閉するようにしている。
+import { Image } from 'astro:assets';
+import logo from '../../assets/logo-horizontal.png';
 import OldNav from './OldNav.astro';
+
+// 旧サイトのロゴ(images/logo1.png)は 400x137 で、表示幅の上限(.logowidth の
+// max-width: 400px)と同じ寸法しかなかったため、高解像度ディスプレイでは
+// 拡大表示されて粗く見えていた。
+// 同じ絵柄の高解像度版(1225x486)に差し替え、2 倍の画像も書き出させる。
 ---
 
 <div class="container-fluid">
 	<header>
 		<!-- 会社ロゴ -->
 		<div class="logowidth">
-			<a href="/"><img class="mw-100" src="/images/logo1.png" alt="たかみくらファーム" /></a>
+			<a href="/">
+				<Image
+					class="mw-100"
+					src={logo}
+					alt="たかみくらファーム"
+					width={400}
+					densities={[1, 2]}
+					loading="eager"
+				/>
+			</a>
 		</div>
 
 		<!-- ナビゲーション（PC） -->
