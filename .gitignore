@@ -33,3 +33,7 @@ pnpm-debug.log*
 *credentials*
 *.pem
 *.key
+
+# 調査記録・手順書（サーバー構成などを含むため公開リポジトリには置かない）
+# 実体は ~/projects/side/takamikurafarm-docs/ にある
+docs/
