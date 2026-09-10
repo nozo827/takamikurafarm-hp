@@ -121,8 +121,9 @@ export const productCategories: Array<{
 export const contact = {
 	note: '下記のお問合わせ先もしくはお問い合わせフォームから、お気軽にお問合わせください。',
 	companyName: '株式会社　たかみくらファーム',
-	postalCode: '675-0332',
-	address: '兵庫県加古川市志方町横大路381-1',
+	postalCode: '675-0021',
+	address: '兵庫県加古川市尾上町安田423-1',
+	addressNote: '（古民家たけのはな）',
 	tel: '079-452-1000',
 	fax: '079-441-7258',
 	email: 'info@takamikurafarm.com',
