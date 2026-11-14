@@ -10,7 +10,7 @@
   NODE_VERSION = "22.12.0"
 
 # --- 旧 URL の引き継ぎ -----------------------------------------------------
-# 静的ページ(/about.html, /shop.html, /hurusato.html, /contact.html)は
+# 静的ページ(/about.html, /shop.html, /contact.html)は
 # astro.config.mjs の build.format = 'file' により URL が変わらないため、
 # リダイレクトは不要。
 #
@@ -18,6 +18,13 @@
 # 外部リンクや検索結果から来た人が 404 に落ちないよう、トップへ送る。
 [[redirects]]
   from = "/blog/*"
+  to = "/"
+  status = 301
+  force = true
+
+# ふるさと納税のページは削除した。外部リンクから来た人をトップへ送る。
+[[redirects]]
+  from = "/hurusato.html"
   to = "/"
   status = 301
   force = true
@@ -54,18 +61,8 @@
   status = 301
 
 [[redirects]]
-  from = "/images/banner6.png"
-  to = "/images/banner6.jpg"
-  status = 301
-
-[[redirects]]
   from = "/images/takamikura1.png"
   to = "/images/takamikura1.jpg"
-  status = 301
-
-[[redirects]]
-  from = "/images/banner1.png"
-  to = "/images/banner1.jpg"
   status = 301
 
 [[redirects]]

@@ -28,7 +28,6 @@ export const nav = [
 	{ label: 'トップ', href: '/' },
 	{ label: '和土滋味', href: '/about.html' },
 	{ label: 'STORE LIST', href: '/shop.html' },
-	{ label: 'ふるさと納税', href: '/hurusato.html' },
 	{ label: 'お知らせ', href: '/news.html' },
 	{ label: 'お問い合わせ', href: '/contact.html' },
 ] as const;
