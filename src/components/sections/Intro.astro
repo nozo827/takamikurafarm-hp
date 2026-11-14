@@ -17,7 +17,12 @@ import { intro } from '../../data/site';
 			))}
 		</p>
 		<p class="mx-auto mt-8 max-w-xl font-serif text-base leading-8 text-gold-light sm:text-lg">
-			{intro.closing}
+			{intro.closing.map((line, i) => (
+				<>
+					{i > 0 && <br />}
+					{line}
+				</>
+			))}
 		</p>
 	</div>
 </section>
