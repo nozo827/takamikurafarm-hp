@@ -29,6 +29,18 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "/hurusato"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/hurusato/*"
+  to = "/"
+  status = 301
+  force = true
+
 # 竹のはなのページは移行前からサーバー上に存在せず 404 だった。
 # 念のためトップへ送っておく。
 [[redirects]]
